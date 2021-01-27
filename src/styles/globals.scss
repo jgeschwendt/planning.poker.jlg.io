@@ -1,0 +1,11 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$font-family-base: $font-family-sans-serif;
+$font-family-code: $font-family-monospace;
+
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/reboot";
+
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/forms";
