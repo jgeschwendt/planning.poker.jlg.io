@@ -1,7 +1,7 @@
-import type { Poll } from "../../modules/Poll/types";
+import type { Poll } from "../../blocks/PlanningPoker/types";
 
 const sendMessage = async (channelName: string, event: string, data: unknown): Promise<unknown> => {
-  const response = await fetch("/api/poll", {
+  const response = await fetch("/api/state", {
     body: JSON.stringify([channelName, event, data]),
     headers: {
       "content-type": "application/json",
@@ -17,7 +17,7 @@ const sendMessage = async (channelName: string, event: string, data: unknown): P
 };
 
 const getPollChannel = async (channelName: string): Promise<Poll> => {
-  const response = await fetch(`/api/poll/${channelName}`, {
+  const response = await fetch(`/api/state/${channelName}`, {
     headers: {
       "content-type": "application/json",
     },

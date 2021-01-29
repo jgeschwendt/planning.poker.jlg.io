@@ -1,7 +1,7 @@
 import type { NextApiHandler } from "next";
-import { pollDefault } from "../../../modules/Poll/reducer";
-import type { Poll } from "../../../modules/Poll/types";
-import { rGet } from "../../../platforms/server/lib/redis";
+import { pollDefault } from "../../../blocks/PlanningPoker/reducer";
+import type { Poll } from "../../../blocks/PlanningPoker/types";
+import { rGet } from "../../../platforms/server/redis";
 
 const handler: NextApiHandler = async (req, res): Promise<void> => {
   try {

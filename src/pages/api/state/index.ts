@@ -1,7 +1,7 @@
 import type { NextApiHandler } from "next";
-import { pollDefault, pollReducer } from "../../../modules/Poll/reducer";
-import { pusher } from "../../../platforms/server/lib/pusher";
-import { rGet, rSet } from "../../../platforms/server/lib/redis";
+import { pollDefault, pollReducer } from "../../../blocks/PlanningPoker/reducer";
+import { pusher } from "../../../platforms/server/pusher";
+import { rGet, rSet } from "../../../platforms/server/redis";
 
 // eslint-disable-next-line max-statements -- todo
 const handler: NextApiHandler = async (req, res) => {

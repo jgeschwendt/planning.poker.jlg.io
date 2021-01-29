@@ -10,7 +10,8 @@ export const useDidMount = <T>(callback?: () => T, deps: DependencyList = []): b
     if (typeof callback === "function") {
       callback();
     }
-  }, [callback, deps]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- forwarding deps
+  }, deps);
 
   return mounted;
 };

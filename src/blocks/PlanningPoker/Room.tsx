@@ -1,11 +1,12 @@
-import type { PresenceChannel } from "pusher-js";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback, useEffect, useState } from "react";
-import { Results } from "./Results";
-import { Voters } from "./Voters";
+import { RoomMembers } from "./RoomMembers";
+import { RoomState } from "./RoomState";
+import type { pollSlice } from "./reducer";
 import { pollDefault } from "./reducer";
 import type { Poll } from "./types";
 import { Box, Button, Flex } from "../../components";
+import { usePresenceChannel } from "../../hooks";
 import { getPollChannel, sendMessage } from "../../platforms/client/api";
 
 const CHOICES = ["1", "2", "3", "5", "8", "13", "?", "pass", "☕"];
@@ -28,26 +29,31 @@ const usePoll = (channelName: string): Readonly<[Poll, {
   }];
 };
 
+type Me = {
+  id: string;
+  info: {
+    name: string;
+  };
+};
+
 // eslint-disable-next-line max-lines-per-function -- todo
-export const RoomConnected = ({ channel }: { channel: PresenceChannel }): JSX.Element => {
+export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
+  const [channel] = usePresenceChannel(channelName);
   const [poll, { setPoll }] = usePoll(channel.name);
 
-  const sendChannelMessage = useCallback((event: string, data: unknown) => {
+  const sendChannelMessage = useCallback((event: keyof typeof pollSlice, data: unknown) => {
     void sendMessage(channel.name, event, data);
   }, [channel.name]);
 
   const sendVote = useCallback((vote: string) => {
     if (channel.members.me !== null) {
-      sendChannelMessage("vote", {
-        data: {
-          socketID: (channel.members.me as { id: string }).id,
-          vote,
-        },
-        from: (channel.members.me as { info: { name: string } }).info.name,
-      });
+      const me = channel.members.me as Me;
+
+      sendChannelMessage("vote", [me.info.name, { socketID: me.id, vote }]);
     }
   }, [channel.members.me, sendChannelMessage]);
 
+  // Bind to channel updates
   useEffect(() => {
     const update = (pollUpdate: Poll): void => {
       setPoll(pollUpdate);
@@ -60,28 +66,27 @@ export const RoomConnected = ({ channel }: { channel: PresenceChannel }): JSX.El
     };
   }, [channel, setPoll]);
 
+  // Trigger an empty vote when component mounts
   useEffect(() => {
     if (channel.members.me !== null) {
-      sendChannelMessage("vote", {
-        data: {
-          socketID: (channel.members.me as { id: string }).id,
-        },
-        from: (channel.members.me as { info: { name: string } }).info.name,
-      });
+      const me = channel.members.me as Me;
+
+      sendChannelMessage("vote", [me.info.name, { socketID: me.id }]);
     }
   }, [channel.members.me, sendChannelMessage]);
 
-  const myChoice: string | undefined =
-    channel.members.me !== null && typeof poll.votes[(channel.members.me as { info: string }).info] !== "undefined"
-      ? poll.votes[(channel.members.me as { info: { name: string } }).info.name].vote
-      : void 0;
+  const me = channel.members.me as { info: { name: string } } | null;
+
+  const myChoice: string | false | undefined = (
+    me !== null && typeof poll.votes[me.info.name] !== "undefined"
+  ) && poll.votes[me.info.name].vote;
 
   return (
     <Flex flex="1" flexDirection="column" height="100%">
       <Flex flex="1">
         <Box width={`${2 / 3 * 100}%`}>
           <Flex flexDirection="column" justifyContent="space-between" height="100%">
-            <Results {...poll} sx={{ flex: 1 }} />
+            <RoomState {...poll} sx={{ flex: 1 }} />
             <Flex flexDirection="row" justifyContent="center" my={5}>
               {CHOICES.map((choice) => (
                 <Box key={choice} m={1}>
@@ -99,13 +104,14 @@ export const RoomConnected = ({ channel }: { channel: PresenceChannel }): JSX.El
             </Flex>
           </Flex>
         </Box>
+
         <Flex
           flexDirection="column"
           justifyContent="space-between"
           width={`${1 / 3 * 100}%`}
         >
           <Box>
-            <Voters poll={poll} />
+            <RoomMembers poll={poll} />
           </Box>
           <Box>
             <Button

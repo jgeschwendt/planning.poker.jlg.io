@@ -1,19 +1,9 @@
 import type { Options } from "pusher-js";
 import Pusher from "pusher-js";
 import type { ReactNode } from "react";
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 
 const PusherContext = createContext<Pusher | null>(null);
-
-const usePusher = (): Pusher | null => {
-  const context = useContext(PusherContext);
-
-  if (typeof context === "undefined") {
-    throw new Error("usePusher must be used within a PusherContext");
-  }
-
-  return context;
-};
 
 const PusherProvider = ({
   appKey,
@@ -26,6 +16,6 @@ const PusherProvider = ({
 );
 
 export {
+  PusherContext,
   PusherProvider,
-  usePusher,
 };

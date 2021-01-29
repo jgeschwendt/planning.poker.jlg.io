@@ -20,10 +20,10 @@ const Item = styled.li(css({
 const Dot = styled.div(({ color }) => css({
   backgroundColor: color,
   border: "2px solid black",
-  borderRadius: 8,
-  height: 16,
+  borderRadius: ".5rem",
+  height: "1rem",
   mr: 2,
-  width: 16,
+  width: "1rem",
 }));
 
 const selectColor = (vote?: string): string => {
@@ -40,7 +40,7 @@ const selectColor = (vote?: string): string => {
   return "green";
 };
 
-export const Voters = ({ poll }: { poll: Poll }): JSX.Element => (
+export const RoomMembers = ({ poll }: { poll: Poll }): JSX.Element => (
   <List>
     {Object.keys(poll.votes).map((username) => (
       <Item key={username}>

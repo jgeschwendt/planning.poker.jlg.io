@@ -34,7 +34,7 @@ const pollSlice = {
   "results.public.set": (value: boolean): ((poll: Poll) => Poll) => produce((poll: Poll) => {
     poll.results.public = value;
   }),
-  "vote": ({ data, from }: { data: Record<string, unknown>; from: string }): ((poll: Poll) => Poll) => (
+  "vote": ([from, data]: [string, Record<string, unknown>]): ((poll: Poll) => Poll) => (
     produce((poll: Poll) => {
       poll.votes[from] = { ...poll.votes[from], ...data };
     })
@@ -45,6 +45,7 @@ const pollReducer = (poll: Poll, event: string, payload: unknown): Poll => {
   if (event in pollSlice) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- todo
     return produce(pollSlice[event as keyof typeof pollSlice](payload as any)(poll), (draft) => {
+      // If all the votes have been submitted
       if (
         Object.keys(draft.votes).filter((username) => typeof draft.votes[username].vote === "undefined").length === 0
       ) {

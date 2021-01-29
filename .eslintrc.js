@@ -135,6 +135,7 @@ module.exports = {
       ],
       files: [
         ".eslintrc.js",
+        "babel.config.js",
       ],
     },
   ],

@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unassigned-import -- todo
-import "../styles/globals.scss";
+import "./_app.scss";
 
 import { ThemeProvider } from "@emotion/react";
 import type { AppProps } from "next/app";

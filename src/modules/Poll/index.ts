@@ -1,1 +1,0 @@
-export { Poll } from "./Poll";

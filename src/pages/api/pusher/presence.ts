@@ -1,8 +1,7 @@
 import type { NextApiHandler, NextApiRequest } from "next";
-import { pollDefault } from "../../../modules/Poll/reducer";
-import type { Poll } from "../../../modules/Poll/types";
-import { pusher } from "../../../platforms/server/lib/pusher";
-import { rGet, rSet } from "../../../platforms/server/lib/redis";
+import { pollDefault } from "../../../blocks/PlanningPoker/reducer";
+import { pusher } from "../../../platforms/server/pusher";
+import { rGet, rSet } from "../../../platforms/server/redis";
 
 type APIRequest = Omit<NextApiRequest, "body"> & {
   body: {
@@ -12,16 +11,16 @@ type APIRequest = Omit<NextApiRequest, "body"> & {
 
 const handler: NextApiHandler = async (req: APIRequest, res) => {
   if (req.body.events) {
-    const pList: Promise<unknown>[] = [];
+    const pList: Promise<void>[] = [];
 
     for (const event of req.body.events) {
       pList.push((async (): Promise<void> => {
         const response = await pusher.get({ path: `/channels/${event.channel}/users` }) as Response;
 
         if (response.status === 200) {
-          const poll = await rGet<Poll>(event.channel) ?? pollDefault;
+          const poll = await rGet<typeof pollDefault>(event.channel) ?? pollDefault;
 
-          poll.users = (await response.json() as Poll).users;
+          poll.users = (await response.json() as typeof poll).users;
 
           await rSet(event.channel, poll);
 

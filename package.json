@@ -31,6 +31,7 @@
     "@eslint-calibrate/eslint-config-react": "jgeschwendt/eslint-calibrate#head=main&workspace=@eslint-calibrate/eslint-config-react",
     "@eslint-calibrate/eslint-config-typescript": "jgeschwendt/eslint-calibrate#head=main&workspace=@eslint-calibrate/eslint-config-typescript",
     "@eslint-calibrate/eslint-plugin": "jgeschwendt/eslint-calibrate#head=main&workspace=@eslint-calibrate/eslint-plugin",
+    "@emotion/babel-plugin": "11.1.2",
     "@types/node": "14.14.22",
     "@types/react": "17.0.0",
     "@types/redis": "2.8.28",

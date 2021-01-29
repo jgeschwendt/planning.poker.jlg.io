@@ -1,3 +1,4 @@
+export { BorderBox } from "./BorderBox";
 export type { BoxProps } from "./Box";
 export { Box } from "./Box";
 export { Button } from "./Button";

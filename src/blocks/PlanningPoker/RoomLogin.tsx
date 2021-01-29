@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import type { FormEvent } from "react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   Box,
   Button,
@@ -11,7 +11,8 @@ import {
 
 const Form = styled.form({ width: "15rem" });
 
-export const RoomLogin = ({ onLogin }: { onLogin: (user: { name: string }) => void }): JSX.Element => {
+// eslint-disable-next-line max-lines-per-function -- todo
+export const RoomLogin = ({ dispatchLogin }: { dispatchLogin: (user: { name: string }) => void }): JSX.Element => {
   const form = {
     name: useRef<HTMLInputElement>(null),
   };
@@ -21,22 +22,34 @@ export const RoomLogin = ({ onLogin }: { onLogin: (user: { name: string }) => vo
 
     if (typeof form.name.current?.value === "string") {
       if (form.name.current.value !== "") {
-        onLogin({
+        dispatchLogin({
           name: form.name.current.value,
         });
       }
     }
   };
 
+  useEffect(() => {
+    form.name.current?.focus();
+  }, [form.name]);
+
   return (
     <Flex alignItems="center" justifyContent="center" minHeight="100vh" width="100%">
       <Box>
         <Form onSubmit={handleSubmit}>
-          <Label htmlFor="name" sx={{ letterSpacing: 1, textTransform: "uppercase" }}>
-            Username
+          <Label
+            htmlFor="name"
+            sx={{ letterSpacing: 1, textTransform: "uppercase" }}
+          >Username
           </Label>
 
-          <Input id="name" mb={3} p={3} ref={form.name} type="text" />
+          <Input
+            id="name"
+            mb={3}
+            p={3}
+            ref={form.name}
+            type="text"
+          />
 
           <Button
             id="submit"

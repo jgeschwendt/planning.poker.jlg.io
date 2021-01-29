@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention -- **/
 /* eslint-disable camelcase -- **/
 import type { NextApiHandler } from "next";
-import { pusher } from "../../../platforms/server/lib/pusher";
+import { pusher } from "../../../platforms/server/pusher";
 
 type RequestBody = {
   [key: string]: unknown;
