@@ -1,11 +1,7 @@
-import { useCallback, useState } from "react";
+import { useReducer } from "react";
 
 export const useToggle = (initialState = false): [boolean, () => void] => {
-  const [toggle, setToggle] = useState(initialState);
-
-  const flipToggle = useCallback(() => {
-    setToggle(!toggle);
-  }, [toggle, setToggle]);
+  const [toggle, flipToggle] = useReducer<(state: boolean) => boolean>((toggleState) => !toggleState, initialState);
 
   return [toggle, flipToggle];
 };

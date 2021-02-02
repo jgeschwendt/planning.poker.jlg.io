@@ -6,6 +6,8 @@ import type { ReactNode } from "react";
 import type { BordersProps, ColorProps, SpaceProps, TypographyProps } from "styled-system";
 import { borders, color, space, typography, variant } from "styled-system";
 
+const media = { breakpoint: { lg: { up: "@media (min-width: 1200px)" } } };
+
 const variants: Record<string, [string, SystemStyleObject]> = {
   body1: ["p", {
     fontFamily: "Tahoma",
@@ -15,9 +17,17 @@ const variants: Record<string, [string, SystemStyleObject]> = {
   }],
   headline1: ["h1", {
     fontFamily: "Tahoma",
+    margin: "calc(1.375rem + 1.5vw)",
+    [media.breakpoint.lg.up]: {
+      margin: "2.5rem",
+    },
   }],
   headline2: ["h2", {
     fontFamily: "Tahoma",
+    margin: "calc(1.325rem + 0.9vw)",
+    [media.breakpoint.lg.up]: {
+      margin: "2rem",
+    },
   }],
 };
 

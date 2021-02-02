@@ -25,7 +25,7 @@ const Home = (): JSX.Element => {
 
   useDidMount(() => {
     form.channel.current?.focus();
-  }, [form.channel]);
+  });
 
   return (
     <Flex alignItems="center" justifyContent="center" minHeight="100vh" width="100%">

@@ -1,6 +1,7 @@
 import type { Options } from "pusher";
 import { config as clientConfig } from "../client/config";
 
+/* eslint-disable node/no-process-env -- config */
 if (typeof process.env.PUSHER_APP_ID !== "string") {
   throw new Error("Missing: process.env.PUSHER_APP_ID");
 }
@@ -34,3 +35,4 @@ export const config = {
     port: Number(process.env.REDIS_PORT),
   },
 };
+/* eslint-enable node/no-process-env -- config */

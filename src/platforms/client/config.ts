@@ -1,3 +1,4 @@
+/* eslint-disable node/no-process-env -- config */
 if (typeof process.env.NEXT_PUBLIC_PUSHER_KEY !== "string") {
   throw new Error("Missing: process.env.NEXT_PUBLIC_PUSHER_KEY");
 }
@@ -14,3 +15,4 @@ export const config = {
     },
   },
 };
+/* eslint-enable node/no-process-env -- config */

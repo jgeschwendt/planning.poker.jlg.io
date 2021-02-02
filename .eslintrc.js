@@ -64,6 +64,8 @@ module.exports = {
     {
       extends: [
         "@eslint-calibrate/react",
+        "@eslint-calibrate/node",
+        "@eslint-calibrate/node/typescript",
       ],
       files: [
         "src/**/*.ts",
@@ -107,6 +109,7 @@ module.exports = {
       ],
       rules: {
         "import/no-default-export": "off",
+        "import/prefer-default-export": "error",
       },
     },
 
@@ -116,14 +119,12 @@ module.exports = {
         "@eslint-calibrate/jest",
       ],
       files: [
-        "*.test.js",
         "*.test.ts",
         "*.test.tsx",
       ],
       rules: {
         "@typescript-eslint/no-magic-numbers": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
-        "no-magic-numbers": "off",
       },
     },
 
@@ -149,14 +150,10 @@ module.exports = {
   },
   root: true,
   rules: {
-    "dot-location": ["error", "property"],
     "id-length": ["error", {
       exceptions: AllowedOneCharacterVariables,
     }],
     "import/no-relative-parent-imports": "off",
     "no-warning-comments": "warn",
-    "object-property-newline": ["error", {
-      allowAllPropertiesOnSameLine: true,
-    }],
   },
 };
