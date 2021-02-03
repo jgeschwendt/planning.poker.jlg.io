@@ -17,7 +17,7 @@ const pollSlice = {
     // Remove user votes
     for (const username in poll.votes) {
       // Check if the user is online
-      if (poll.users.find(({ id }) => id === poll.votes[username].socketID)) {
+      if (poll.users.some(({ id }) => id === poll.votes[username].socketID)) {
         // Check if the user on a coffee break.
         if (poll.votes[username].vote !== "☕") {
           poll.votes[username] = {

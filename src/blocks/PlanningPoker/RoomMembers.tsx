@@ -31,10 +31,8 @@ const selectColor = (vote?: string): string => {
     return "yellow";
   }
 
-  if (isNaN(parseFloat(vote))) {
-    if (vote === "☕") {
-      return "orange";
-    }
+  if (Number.isNaN(Number.parseFloat(vote)) && vote === "☕") {
+    return "orange";
   }
 
   return "green";

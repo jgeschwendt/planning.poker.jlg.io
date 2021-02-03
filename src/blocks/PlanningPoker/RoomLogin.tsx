@@ -11,7 +11,6 @@ import {
 
 const Form = styled.form({ width: "15rem" });
 
-// eslint-disable-next-line max-lines-per-function -- todo
 export const RoomLogin = ({ dispatchLogin }: { dispatchLogin: (user: { name: string }) => void }): JSX.Element => {
   const form = {
     name: useRef<HTMLInputElement>(null),
@@ -20,12 +19,10 @@ export const RoomLogin = ({ dispatchLogin }: { dispatchLogin: (user: { name: str
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (typeof form.name.current?.value === "string") {
-      if (form.name.current.value !== "") {
-        dispatchLogin({
-          name: form.name.current.value,
-        });
-      }
+    if (typeof form.name.current?.value === "string" && form.name.current.value !== "") {
+      dispatchLogin({
+        name: form.name.current.value,
+      });
     }
   };
 

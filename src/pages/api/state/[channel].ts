@@ -15,8 +15,8 @@ const handler: NextApiHandler = async (req, res): Promise<void> => {
     }
 
     res.json(await rGet<Poll>(req.query.channel) ?? pollDefault);
-  } catch (err) {
-    global.console.error(err);
+  } catch (error) {
+    global.console.error(error);
     res.status(500);
   }
 };

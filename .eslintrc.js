@@ -54,8 +54,6 @@ module.exports = {
         project: "./tsconfig.json",
       },
       rules: {
-        "@typescript-eslint/non-nullable-type-assertion-style": "off",
-        "@typescript-eslint/object-curly-spacing": ["error", "always"],
         "@typescript-eslint/prefer-readonly-parameter-types": "off",
       },
     },
@@ -87,9 +85,7 @@ module.exports = {
         "import/no-named-export": "off",
         "import/no-nodejs-modules": ["error", { "allow": ["util"] }],
         "import/prefer-default-export": "off",
-        "react-hooks/exhaustive-deps": ["warn", {
-          additionalHooks: "useRecoilCallback",
-        }],
+        "react-hooks/exhaustive-deps": "error",
         "react/prop-types": "off",
         // Not needed since React 17
         "react/react-in-jsx-scope": "off",
@@ -137,6 +133,7 @@ module.exports = {
       files: [
         ".eslintrc.js",
         "babel.config.js",
+        "next.config.js",
       ],
     },
   ],
@@ -155,5 +152,11 @@ module.exports = {
     }],
     "import/no-relative-parent-imports": "off",
     "no-warning-comments": "warn",
+    "promise/no-native": "off",
+    "unicorn/filename-case": "off",
+    "unicorn/no-array-reduce": "off",
+    "unicorn/no-keyword-prefix": "off",
+    "unicorn/no-null": "off",
+    "unicorn/prevent-abbreviations": "off",
   },
 };

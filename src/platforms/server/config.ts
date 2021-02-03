@@ -3,23 +3,23 @@ import { config as clientConfig } from "../client/config";
 
 /* eslint-disable node/no-process-env -- config */
 if (typeof process.env.PUSHER_APP_ID !== "string") {
-  throw new Error("Missing: process.env.PUSHER_APP_ID");
+  throw new TypeError("Missing: process.env.PUSHER_APP_ID");
 }
 
 if (typeof process.env.PUSHER_SECRET !== "string") {
-  throw new Error("Missing: process.env.PUSHER_SECRET");
+  throw new TypeError("Missing: process.env.PUSHER_SECRET");
 }
 
 if (typeof process.env.REDIS_HOST !== "string") {
-  throw new Error("Missing: process.env.REDIS_HOST");
+  throw new TypeError("Missing: process.env.REDIS_HOST");
 }
 
 if (typeof process.env.REDIS_PASSWORD !== "string") {
-  throw new Error("Missing: process.env.REDIS_PASSWORD");
+  throw new TypeError("Missing: process.env.REDIS_PASSWORD");
 }
 
 if (typeof process.env.REDIS_PORT !== "string") {
-  throw new Error("Missing: process.env.REDIS_PORT");
+  throw new TypeError("Missing: process.env.REDIS_PORT");
 }
 
 export const config = {

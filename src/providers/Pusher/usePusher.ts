@@ -6,7 +6,7 @@ export const usePusher = (): Pusher => {
   const context = useContext(PusherContext);
 
   if (typeof context === "undefined") {
-    throw new Error("usePusher must be used within a PusherContext");
+    throw new TypeError("usePusher must be used within a PusherContext");
   }
 
   return context as Pusher;
