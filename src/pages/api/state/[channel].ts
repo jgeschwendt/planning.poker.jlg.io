@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import type { NextApiHandler } from "next";
 import { pollDefault } from "../../../blocks/PlanningPoker/reducer";
 import type { Poll } from "../../../blocks/PlanningPoker/types";
@@ -5,20 +6,17 @@ import { rGet } from "../../../platforms/server/redis";
 
 const handler: NextApiHandler = async (req, res): Promise<void> => {
   try {
-    if (typeof req.query.channel !== "string") {
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers -- todo
-      res.status(401).send({
-        error: "Invalid payload: req.query.channel is required",
-      });
-
-      return;
+    if (typeof req.query.channel === "string") {
+      res.json(await rGet<Poll>(req.query.channel) ?? pollDefault);
+    } else {
+      res.status(StatusCodes.UNPROCESSABLE_ENTITY).send("Missing `query.channel`");
     }
-
-    res.json(await rGet<Poll>(req.query.channel) ?? pollDefault);
   } catch (error) {
     global.console.error(error);
     res.status(500);
   }
 };
 
-export default handler;
+export {
+  handler as default,
+};

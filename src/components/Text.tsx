@@ -62,11 +62,18 @@ const TextBase = styled("span" as "view", { shouldForwardProp })(
 const Text = (props: TextProps): JSX.Element => {
   let tag: string | null = null;
 
+  // eslint-disable-next-line react/destructuring-assignment -- props forwared
   if (typeof props.use === "string" && props.use in variants) {
     [tag] = variants[props.use];
   }
 
   return <TextBase as={tag} {...props} />;
+};
+
+Text.defaultProps = {
+  children: void 0,
+  sx: void 0,
+  use: "",
 };
 
 export {

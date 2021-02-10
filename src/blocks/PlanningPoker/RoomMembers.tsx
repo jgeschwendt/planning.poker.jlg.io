@@ -43,7 +43,10 @@ export const RoomMembers = ({ poll }: { poll: Poll }): JSX.Element => (
     {Object.keys(poll.votes).map((username) => (
       <Item key={username}>
         <Dot color={selectColor(poll.votes[username].vote)} />
-        <Text>{username}</Text>
+
+        <Text>
+          {username}
+        </Text>
       </Item>
     ))}
   </List>

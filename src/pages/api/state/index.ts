@@ -1,25 +1,38 @@
+import { StatusCodes } from "http-status-codes";
 import type { NextApiHandler } from "next";
 import { pollDefault, pollReducer } from "../../../blocks/PlanningPoker/reducer";
 import { pusher } from "../../../platforms/server/pusher";
 import { rGet, rSet } from "../../../platforms/server/redis";
 
-// eslint-disable-next-line max-statements -- todo
-const handler: NextApiHandler = async (req, res) => {
-  const [channelName, event, payload] = req.body as [
-    string | undefined,
-    string | undefined,
-    Record<string, unknown> | undefined,
-  ];
+type Body = [
+  channelName: string,
+  event: string,
+  payload: Record<string, unknown> | undefined,
+];
 
-  if (typeof channelName !== "string") {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers -- todo
-    res.status(401).send("Missing `channelName`");
-    return;
+const processBody = (body: unknown): Body => {
+  if (!Array.isArray(body)) {
+    throw new TypeError("Body should be an Array");
   }
 
-  if (typeof event !== "string") {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers -- todo
-    res.status(401).send("Missing `event`");
+  if (typeof body[0] === "undefined") {
+    throw new TypeError("Missing `body[channelName,,]`");
+  }
+
+  if (typeof body[1] === "undefined") {
+    throw new TypeError("Missing `body[,event,]`");
+  }
+
+  return [body[0], body[1], body[2]] as Body;
+};
+
+const handler: NextApiHandler = async (req, res) => {
+  let [channelName, event, payload] = [void 0, void 0, void 0] as Partial<Body>;
+
+  try {
+    [channelName, event, payload] = processBody(req.body);
+  } catch (error) {
+    res.status(StatusCodes.UNPROCESSABLE_ENTITY).send(error);
     return;
   }
 
@@ -29,7 +42,10 @@ const handler: NextApiHandler = async (req, res) => {
 
   await pusher.trigger(channelName, "update", poll);
 
-  res.send(200);
+  res.send(StatusCodes.OK);
 };
 
-export default handler;
+export {
+  handler as default,
+  processBody,
+};

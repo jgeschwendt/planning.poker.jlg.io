@@ -32,6 +32,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, ...props },
   const classNames = ["form-control", className];
 
   return (
+    // eslint-disable-next-line react/forbid-component-props -- todo
     <InputBase className={classNames.join(" ")} ref={ref} {...props} />
   );
 });

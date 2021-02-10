@@ -41,15 +41,15 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
   const [channel] = usePresenceChannel(channelName);
   const [poll, { setPoll }] = usePoll(channel.name);
 
-  const sendChannelMessage = useCallback((event: keyof typeof pollSlice, data: unknown) => {
+  const sendChannelMessage = useCallback((event: keyof typeof pollSlice, data: unknown) => (): void => {
     void sendMessage(channel.name, event, data);
   }, [channel.name]);
 
-  const sendVote = useCallback((vote: string) => {
+  const sendVote = useCallback((vote: string) => (): void => {
     if (channel.members.me !== null) {
       const me = channel.members.me as Me;
 
-      sendChannelMessage("vote", [me.info.name, { socketID: me.id, vote }]);
+      sendChannelMessage("vote", [me.info.name, { socketID: me.id, vote }])();
     }
   }, [channel.members.me, sendChannelMessage]);
 
@@ -71,7 +71,7 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
     if (channel.members.me !== null) {
       const me = channel.members.me as Me;
 
-      sendChannelMessage("vote", [me.info.name, { socketID: me.id }]);
+      sendChannelMessage("vote", [me.info.name, { socketID: me.id }])();
     }
   }, [channel.members.me, sendChannelMessage]);
 
@@ -85,19 +85,19 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
     <Flex flex="1" flexDirection="column" height="100%">
       <Flex flex="1">
         <Box width={`${2 / 3 * 100}%`}>
-          <Flex flexDirection="column" justifyContent="space-between" height="100%">
+          <Flex flexDirection="column" height="100%" justifyContent="space-between">
             <RoomState {...poll} sx={{ flex: 1 }} />
+
             <Flex flexDirection="row" justifyContent="center" my={5}>
               {CHOICES.map((choice) => (
                 <Box key={choice} m={1}>
                   <Button
                     borderRadius={0}
-                    onClick={(): void => {
-                      sendVote(choice);
-                    }}
+                    onClick={sendVote(choice)}
                     size="lg"
                     variant={choice === myChoice ? "primary" : "secondary"}
-                  >{choice}
+                  >
+                    {choice}
                   </Button>
                 </Box>
               ))}
@@ -105,31 +105,29 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
           </Flex>
         </Box>
 
-        <Flex
-          flexDirection="column"
-          justifyContent="space-between"
-          width={`${1 / 3 * 100}%`}
-        >
+        <Flex flexDirection="column" justifyContent="space-between" width={`${1 / 3 * 100}%`}>
           <Box>
             <RoomMembers poll={poll} />
           </Box>
+
           <Box>
             <Button
               borderRadius="0"
-              onClick={(): void => {
-                sendChannelMessage("results.public.set", true);
-              }}
+              onClick={sendChannelMessage("results.public.set", true)}
               variant="primary"
               width="50%"
-            >Show</Button>
+            >
+              Show
+            </Button>
+
             <Button
               borderRadius="0"
-              onClick={(): void => {
-                sendChannelMessage("reset", void 0);
-              }}
+              onClick={sendChannelMessage("reset", void 0)}
               variant="secondary"
               width="50%"
-            >Restart</Button>
+            >
+              Restart
+            </Button>
           </Box>
         </Flex>
       </Flex>

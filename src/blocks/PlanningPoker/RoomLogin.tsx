@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import type { FormEvent } from "react";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
   Box,
   Button,
@@ -16,7 +16,7 @@ export const RoomLogin = ({ dispatchLogin }: { dispatchLogin: (user: { name: str
     name: useRef<HTMLInputElement>(null),
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = useCallback((event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     if (typeof form.name.current?.value === "string" && form.name.current.value !== "") {
@@ -24,7 +24,7 @@ export const RoomLogin = ({ dispatchLogin }: { dispatchLogin: (user: { name: str
         name: form.name.current.value,
       });
     }
-  };
+  }, [dispatchLogin, form.name]);
 
   useEffect(() => {
     form.name.current?.focus();
@@ -34,10 +34,8 @@ export const RoomLogin = ({ dispatchLogin }: { dispatchLogin: (user: { name: str
     <Flex alignItems="center" justifyContent="center" minHeight="100vh" width="100%">
       <Box>
         <Form onSubmit={handleSubmit}>
-          <Label
-            htmlFor="name"
-            sx={{ letterSpacing: 1, textTransform: "uppercase" }}
-          >Username
+          <Label htmlFor="name" sx={{ letterSpacing: 1, textTransform: "uppercase" }}>
+            Username
           </Label>
 
           <Input
@@ -50,11 +48,11 @@ export const RoomLogin = ({ dispatchLogin }: { dispatchLogin: (user: { name: str
 
           <Button
             id="submit"
-            sx={{ letterSpacing: 1, py: ".75rem", textTransform: "uppercase" }}
+            sx={{ letterSpacing: 1, py: ".75rem", textTransform: "uppercase", width: "100%" }}
             type="submit"
             variant="outline-primary"
-            width="100%"
-          >Login
+          >
+            Login
           </Button>
         </Form>
       </Box>

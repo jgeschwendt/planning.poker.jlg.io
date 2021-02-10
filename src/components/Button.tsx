@@ -46,7 +46,7 @@ const ButtonBase = styled("button", { shouldForwardProp })(
   ({ sx }: { sx?: SystemStyleObject }) => css(sx),
 );
 
-export const Button = ({
+const Button = ({
   children,
   color: colorProp,
   variant = "primary",
@@ -62,11 +62,26 @@ export const Button = ({
 
   return (
     <ButtonBase
+      // eslint-disable-next-line react/forbid-component-props -- todo
       className={classNames.join(" ")}
       color={colorProp as string}
       type={type}
       {...props}
-    >{children}
+    >
+      {children}
     </ButtonBase>
   );
+};
+
+Button.defaultProps = {
+  children: void 0,
+  color: void 0,
+  id: void 0,
+  size: void 0,
+  type: "button",
+  variant: "primary",
+};
+
+export {
+  Button,
 };

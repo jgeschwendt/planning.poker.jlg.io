@@ -1550,6 +1550,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/retry@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "@types/retry@npm:0.12.0"
+  checksum: 0755164f2c8d615a0385609c478aaa20b17e55bc8b16d5d56ffe6a5d30b0a9845d49452a2e8903ec7c43fa361f19daf5e68c60e7381ad10a95dd3d0bb5c9f7fd
+  languageName: node
+  linkType: hard
+
 "@types/stack-utils@npm:^2.0.0":
   version: 2.0.0
   resolution: "@types/stack-utils@npm:2.0.0"
@@ -5052,6 +5059,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"http-status-codes@npm:2.1.4":
+  version: 2.1.4
+  resolution: "http-status-codes@npm:2.1.4"
+  checksum: 7cd5b1c88e25541f6a2ec57dec257295ca5c7d996c8cb1d9d55cce84b63712978a94e649575f6ffac33b975101d4ef3e4f07c7e4e764b0290832a5a8419409a7
+  languageName: node
+  linkType: hard
+
 "https-browserify@npm:^1.0.0":
   version: 1.0.0
   resolution: "https-browserify@npm:1.0.0"
@@ -6197,9 +6211,11 @@ __metadata:
     bootstrap: 5.0.0-beta1
     eslint: 7.19.0
     eslint-plugin-mdx: 1.8.2
+    http-status-codes: 2.1.4
     immer: 8.0.1
     jest: 26.6.3
     next: 10.0.6
+    p-retry: 4.3.0
     pusher: 4.0.2
     pusher-js: 7.0.3
     react: 17.0.1
@@ -7437,6 +7453,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"p-retry@npm:4.3.0":
+  version: 4.3.0
+  resolution: "p-retry@npm:4.3.0"
+  dependencies:
+    "@types/retry": ^0.12.0
+    retry: ^0.12.0
+  checksum: 7846cdf2fed459dd01d65526047e48152f7eae52d4d3e34b61ec71691b60713aac976999cf34897f7ef723fcb9a7539d3d2bb5d4b7a0d5008cbe6f7ac66d5e31
+  languageName: node
+  linkType: hard
+
 "p-try@npm:^1.0.0":
   version: 1.0.0
   resolution: "p-try@npm:1.0.0"
@@ -8472,6 +8498,13 @@ __metadata:
   version: 0.1.15
   resolution: "ret@npm:0.1.15"
   checksum: 749c2fcae7071f5ecea4f8a18e35a79a8e8a58e522a16d843ecb9dfe9e647a76d92ae85c22690b02f87d3ab78b6b1f73341efc2fabbf59ed54dcfd9b1bdff883
+  languageName: node
+  linkType: hard
+
+"retry@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "retry@npm:0.12.0"
+  checksum: 51f2fddddb2f157a0738c53c515682813a881df566da36992f3cf0a975ea84a19434c5abbc682056e97351540bcc7ea38fce2622d0b191c3b5cc1020b71ea0f2
   languageName: node
   linkType: hard
 

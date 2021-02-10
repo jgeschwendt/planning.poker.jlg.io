@@ -16,6 +16,8 @@ const handler: NextApiHandler = (req, res) => {
   res.send(pusher.authenticate(user_id, channel_name, { user_id, user_info }));
 };
 
-export default handler;
+export {
+  handler as default,
+};
 /* eslint-enable @typescript-eslint/naming-convention -- **/
 /* eslint-enable camelcase -- **/

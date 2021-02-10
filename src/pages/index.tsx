@@ -34,7 +34,8 @@ const Home = (): JSX.Element => {
           <Label
             htmlFor="name"
             sx={{ letterSpacing: 1, textTransform: "uppercase" }}
-          >Room name
+          >
+            Room name
           </Label>
 
           <Input
@@ -55,7 +56,8 @@ const Home = (): JSX.Element => {
             }}
             type="submit"
             variant="outline-primary"
-          >Login
+          >
+            Login
           </Button>
         </Form>
       </Box>
