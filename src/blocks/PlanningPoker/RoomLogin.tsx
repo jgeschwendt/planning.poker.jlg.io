@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import type { FormEvent } from "react";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import {
   Box,
   Button,
@@ -8,27 +8,23 @@ import {
   Input,
   Label,
 } from "../../components";
+import { useDidMount } from "../../hooks";
 
 const Form = styled.form({ width: "15rem" });
 
 export const RoomLogin = ({ dispatchLogin }: { dispatchLogin: (user: { name: string }) => void }): JSX.Element => {
-  const form = {
-    name: useRef<HTMLInputElement>(null),
-  };
+  const formName = useRef<HTMLInputElement>(null);
 
   const handleSubmit = useCallback((event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (typeof form.name.current?.value === "string" && form.name.current.value !== "") {
-      dispatchLogin({
-        name: form.name.current.value,
-      });
+    if (typeof formName.current?.value === "string" && formName.current.value !== "") {
+      dispatchLogin({ name: formName.current.value });
     }
-  }, [dispatchLogin, form.name]);
+  }, [dispatchLogin]);
 
-  useEffect(() => {
-    form.name.current?.focus();
-  }, [form.name]);
+  // Autofocus form control
+  useDidMount(() => void formName.current?.focus());
 
   return (
     <Flex alignItems="center" justifyContent="center" minHeight="100vh" width="100%">
@@ -42,13 +38,18 @@ export const RoomLogin = ({ dispatchLogin }: { dispatchLogin: (user: { name: str
             id="name"
             mb={3}
             p={3}
-            ref={form.name}
+            ref={formName}
             type="text"
           />
 
           <Button
             id="submit"
-            sx={{ letterSpacing: 1, py: ".75rem", textTransform: "uppercase", width: "100%" }}
+            sx={{
+              letterSpacing: 1,
+              py: ".75rem",
+              textTransform: "uppercase",
+              width: "100%",
+            }}
             type="submit"
             variant="outline-primary"
           >

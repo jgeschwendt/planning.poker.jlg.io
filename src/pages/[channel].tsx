@@ -41,13 +41,12 @@ const Page = ({ query }: { query: { channel: string } }): JSX.Element | null => 
 
   return (
     <Flex flexDirection="column" minHeight="100vh" width="100%">
-      <Box
-        sx={{
-          m: 2,
-          position: ["static", null, "fixed"],
-          right: [null, null, 0],
-          top: [null, null, 0],
-        }}
+      <Box sx={{
+        m: 2,
+        position: ["static", null, "fixed"],
+        right: [null, null, 0],
+        top: [null, null, 0],
+      }}
       >
         <Relative ml="auto" zIndex={1000}>
           <Button bg="white" display="flex" ml="auto" onClick={toggleMenuOpen} variant="outline-secondary">
@@ -65,20 +64,21 @@ const Page = ({ query }: { query: { channel: string } }): JSX.Element | null => 
 
           {
             menuOpen &&
-            <Box sx={{
-              bg: "white",
-              border: "1px solid #000",
-              borderBottomLeftRadius: 4,
-              borderBottomRightRadius: 4,
-              borderTopLeftRadius: [0, null, 4],
-              borderTopRightRadius: [0, null, 4],
-              mt: 6,
-              p: 3,
-              position: "absolute",
-              right: 0,
-              top: 0,
-              zIndex: -1,
-            }}
+            <Box
+              sx={{
+                bg: "white",
+                border: "1px solid #000",
+                borderBottomLeftRadius: 4,
+                borderBottomRightRadius: 4,
+                borderTopLeftRadius: [0, null, 4],
+                borderTopRightRadius: [0, null, 4],
+                mt: 6,
+                p: 3,
+                position: "absolute",
+                right: 0,
+                top: 0,
+                zIndex: -1,
+              }}
             >
               <Button onClick={dispatchLogout} variant="secondary">
                 Logout

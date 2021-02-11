@@ -62,9 +62,9 @@ module.exports = {
     {
       extends: [
         "@eslint-calibrate/react",
+        "plugin:@eslint-calibrate/react",
         "@eslint-calibrate/node",
         "@eslint-calibrate/node/typescript",
-        "plugin:@eslint-calibrate/react",
       ],
       files: [
         "src/**/*.ts",

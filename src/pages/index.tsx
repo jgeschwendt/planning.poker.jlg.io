@@ -11,21 +11,18 @@ const Form = styled.form({ width: "15rem" });
 const Home = (): JSX.Element => {
   const router = useRouter();
 
-  const form = {
-    channel: useRef<HTMLInputElement>(null),
-  };
+  const formChannel = useRef<HTMLInputElement>(null);
 
   const handleOnSubmit = useCallback((event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (typeof form.channel.current?.value !== "undefined") {
-      void router.push(`/${form.channel.current.value}`);
+    if (typeof formChannel.current?.value !== "undefined") {
+      void router.push(`/${formChannel.current.value}`);
     }
-  }, [form.channel, router]);
+  }, [router]);
 
-  useDidMount(() => {
-    form.channel.current?.focus();
-  });
+  // Autofocus form control
+  useDidMount(() => void formChannel.current?.focus());
 
   return (
     <Flex alignItems="center" justifyContent="center" minHeight="100vh" width="100%">
@@ -42,7 +39,7 @@ const Home = (): JSX.Element => {
             id="name"
             mb={3}
             p={3}
-            ref={form.channel}
+            ref={formChannel}
             type="text"
           />
 
