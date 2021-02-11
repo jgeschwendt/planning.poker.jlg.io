@@ -17,17 +17,6 @@ const ReactMagicNumbers = [
   ],
 ];
 
-// eslint-disable-next-line import/no-extraneous-dependencies, node/no-extraneous-require -- @
-const react = require("eslint-plugin-react");
-
-const rules = {};
-
-for (const rule in react.rules) {
-  if (!react.rules[rule].meta.deprecated) {
-    rules[`react/${rule}`] = "error";
-  }
-}
-
 module.exports = {
   extends: [
     "@eslint-calibrate",
@@ -75,6 +64,7 @@ module.exports = {
         "@eslint-calibrate/react",
         "@eslint-calibrate/node",
         "@eslint-calibrate/node/typescript",
+        "plugin:@eslint-calibrate/react",
       ],
       files: [
         "src/**/*.ts",
@@ -96,36 +86,12 @@ module.exports = {
         "import/no-named-export": "off",
         "import/no-nodejs-modules": ["error", { "allow": ["util"] }],
         "import/prefer-default-export": "off",
-        "react-hooks/exhaustive-deps": "error",
-        ...rules,
+        "react/default-props-match-prop-types": "off",
+        // eslint-disable-next-line no-magic-numbers -- config
+        "react/jsx-max-depth": ["error", { "max": 5 }],
         "react/prop-types": "off",
         // Not needed since React 17
         "react/react-in-jsx-scope": "off",
-
-        // eslint-disable-next-line sort-keys -- @
-        "react/default-props-match-prop-types": "off",
-        "react/function-component-definition": ["error", {
-          "namedComponents": "arrow-function",
-          "unnamedComponents": "arrow-function",
-        }],
-        "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
-        // eslint-disable-next-line no-magic-numbers -- config
-        "react/jsx-indent": ["error", 2, {
-          checkAttributes: true,
-          indentLogicalExpressions: false,
-        }],
-        // eslint-disable-next-line no-magic-numbers -- config
-        "react/jsx-indent-props": ["error", 2],
-        // eslint-disable-next-line no-magic-numbers -- config
-        "react/jsx-max-depth": ["error", { "max": 5 }],
-        "react/jsx-max-props-per-line": ["error", { "when": "multiline" }],
-        "react/jsx-no-literals": ["error", {
-          "allowedStrings": [],
-          "ignoreProps": true,
-          "noAttributeStrings": true,
-          "noStrings": false,
-        }],
-        "react/jsx-props-no-spreading": "off",
       },
       settings: {
         "import/extensions": [".ts", ".tsx"],
@@ -189,7 +155,6 @@ module.exports = {
     }],
     "import/no-relative-parent-imports": "off",
     "no-warning-comments": "warn",
-    "promise/no-native": "off",
     "unicorn/filename-case": "off",
     "unicorn/no-array-reduce": "off",
     "unicorn/no-keyword-prefix": "off",
