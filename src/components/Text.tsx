@@ -4,7 +4,7 @@ import css from "@styled-system/css";
 import shouldForwardProp from "@styled-system/should-forward-prop";
 import type { ReactNode } from "react";
 import type { BordersProps, ColorProps, SpaceProps, TypographyProps } from "styled-system";
-import { borders, color, space, typography, variant } from "styled-system";
+import { borders, color, compose, space, typography, variant } from "styled-system";
 
 const media = { breakpoint: { lg: { up: "@media (min-width: 1200px)" } } };
 
@@ -46,10 +46,12 @@ const TextBase = styled("span" as "view", { shouldForwardProp })(
   {
     fontFamily: "monospace",
   },
-  borders,
-  color,
-  space,
-  typography,
+  compose(
+    borders,
+    color,
+    space,
+    typography,
+  ),
   variant({
     prop: "use",
     variants: Object.keys(variants).reduce((object, tag: keyof typeof variants) => (
@@ -62,7 +64,7 @@ const TextBase = styled("span" as "view", { shouldForwardProp })(
 const Text = (props: TextProps): JSX.Element => {
   let tag: string | null = null;
 
-  // eslint-disable-next-line react/destructuring-assignment -- props forwared
+  // eslint-disable-next-line react/destructuring-assignment -- props forwarded
   if (typeof props.use === "string" && props.use in variants) {
     [tag] = variants[props.use];
   }

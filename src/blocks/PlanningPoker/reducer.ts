@@ -1,8 +1,10 @@
-// eslint-disable-next-line import/no-named-as-default -- standard export name
-import produce from "immer";
-import type { Poll } from "./types";
+import immer from "immer";
+import type { SocketState } from "./types";
 
-const pollDefault: Poll = {
+// Alias immer as produce
+const produce = immer;
+
+const socketStateDefault: SocketState = {
   results: {
     public: false,
   },
@@ -10,55 +12,75 @@ const pollDefault: Poll = {
   votes: {},
 };
 
-const pollSlice = {
-  "reset": (): ((poll: Poll) => Poll) => produce((poll: Poll) => {
-    poll.results.public = false;
+type StateUpdate = ((socketState: SocketState) => SocketState);
 
-    // Remove user votes
-    for (const username in poll.votes) {
+/* eslint-disable @typescript-eslint/no-dynamic-delete -- immer scope */
+const socketStateSlice = {
+  "reset": (): StateUpdate => (
+    produce((socketState: SocketState) => {
+      socketState.results.public = false;
+
+      for (const username in socketState.votes) {
       // Check if the user is online
-      if (poll.users.some(({ id }) => id === poll.votes[username].socketID)) {
-        // Check if the user on a coffee break.
-        if (poll.votes[username].vote !== "☕") {
-          poll.votes[username] = {
-            socketID: poll.votes[username].socketID,
-            vote: void 0,
-          };
+        if (socketState.users.some(({ id }) => id === socketState.votes[username].socketID)) {
+        // Check if the user is not taking coffee break.
+          if (socketState.votes[username].vote !== "☕") {
+            socketState.votes[username] = {
+              socketID: socketState.votes[username].socketID,
+              vote: void 0,
+            };
+          }
+        // Otherwise remove them from the room state
+        } else {
+          delete socketState.votes[username];
         }
-      } else {
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- @
-        delete poll.votes[username];
       }
-    }
-  }),
-  "results.public.set": (value: boolean): ((poll: Poll) => Poll) => produce((poll: Poll) => {
-    poll.results.public = value;
-  }),
-  "vote": ([from, data]: [string, Record<string, unknown>]): ((poll: Poll) => Poll) => (
-    produce((poll: Poll) => {
-      poll.votes[from] = { ...poll.votes[from], ...data };
+    })),
+  "results.public.set": (flag: boolean): StateUpdate => (
+    produce((socketState: SocketState) => {
+      socketState.results.public = flag;
+    })
+  ),
+  "vote": ([from, data]: [string, unknown]): StateUpdate => (
+    produce((socketState: SocketState) => {
+      socketState.votes[from] = {
+        ...socketState.votes[from],
+        ...data as Record<string, unknown>,
+      };
     })
   ),
 };
+/* eslint-enable @typescript-eslint/no-dynamic-delete -- immer scope */
 
-const pollReducer = (poll: Poll, event: string, payload: unknown): Poll => {
-  if (event in pollSlice) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- todo
-    return produce(pollSlice[event as keyof typeof pollSlice](payload as any)(poll), (draft) => {
-      // If all the votes have been submitted
-      if (
-        Object.keys(draft.votes).filter((username) => typeof draft.votes[username].vote === "undefined").length === 0
-      ) {
-        draft.results.public = true;
-      }
-    });
+type StateSlice = typeof socketStateSlice;
+
+const socketStateReducer = <Reducer extends StateSlice, Action extends keyof StateSlice>(
+  socketState: SocketState,
+  event: Action,
+  payload: Parameters<Reducer[Action]>[number],
+): SocketState => {
+  if (!(event in socketStateSlice)) {
+    throw new TypeError(`\`socketStateSlice\` does not have key: ${event}`);
   }
 
-  return poll;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- handled by fn signature
+  const state = socketStateSlice[event](payload as any)(socketState);
+
+  // Add room side-effects
+  return produce(state, (draft) => {
+    const usersWithoutVotes = Object
+      .keys(draft.votes)
+      .filter((username) => typeof draft.votes[username].vote === "undefined");
+
+    // If all the votes have been submitted set the results to public
+    if ((usersWithoutVotes).length === 0) {
+      draft.results.public = true;
+    }
+  });
 };
 
 export {
-  pollDefault,
-  pollReducer,
-  pollSlice,
+  socketStateDefault,
+  socketStateReducer,
+  socketStateSlice,
 };

@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import type { NextApiHandler } from "next";
-import { pollDefault, pollReducer } from "../../../blocks/PlanningPoker/reducer";
+import type { socketStateSlice } from "../../../blocks/PlanningPoker/reducer";
+import { socketStateDefault, socketStateReducer } from "../../../blocks/PlanningPoker/reducer";
 import { pusher } from "../../../platforms/server/pusher";
 import { rGet, rSet } from "../../../platforms/server/redis";
 
@@ -36,11 +37,17 @@ const handler: NextApiHandler = async (req, res) => {
     return;
   }
 
-  const poll = pollReducer((await rGet(channelName)) ?? pollDefault, event, payload);
+  const socketState = socketStateReducer(
+    (await rGet(channelName)) ?? socketStateDefault,
+    event as keyof typeof socketStateSlice,
+    payload as unknown as Parameters<
+      typeof socketStateSlice[(keyof typeof socketStateSlice)]
+    >[number],
+  );
 
-  await rSet(channelName, poll);
+  await rSet(channelName, socketState);
 
-  await pusher.trigger(channelName, "update", poll);
+  await pusher.trigger(channelName, "update", socketState);
 
   res.send(StatusCodes.OK);
 };

@@ -1,4 +1,11 @@
-type Poll = {
+type Me = {
+  id: string;
+  info: {
+    name: string;
+  };
+};
+
+type SocketState = {
   results: {
     public: boolean;
   };
@@ -16,6 +23,7 @@ type User = {
 };
 
 export type {
-  Poll,
+  Me,
+  SocketState,
   User,
 };

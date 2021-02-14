@@ -1,4 +1,4 @@
-import type { Poll } from "../../blocks/PlanningPoker/types";
+import type { SocketState } from "../../blocks/PlanningPoker/types";
 
 const sendMessage = async (channelName: string, event: string, data: unknown): Promise<unknown> => {
   const response = await fetch("/api/state", {
@@ -16,7 +16,7 @@ const sendMessage = async (channelName: string, event: string, data: unknown): P
   return response.json();
 };
 
-const getPollChannel = async (channelName: string): Promise<Poll> => {
+const getSocketState = async (channelName: string): Promise<SocketState> => {
   const response = await fetch(`/api/state/${channelName}`, {
     headers: {
       "content-type": "application/json",
@@ -28,10 +28,10 @@ const getPollChannel = async (channelName: string): Promise<Poll> => {
     throw new Error(await response.text());
   }
 
-  return response.json() as Promise<Poll>;
+  return response.json() as Promise<SocketState>;
 };
 
 export {
-  getPollChannel,
+  getSocketState,
   sendMessage,
 };

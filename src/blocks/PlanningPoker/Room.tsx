@@ -2,46 +2,39 @@ import type { Dispatch, SetStateAction } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { RoomMembers } from "./RoomMembers";
 import { RoomState } from "./RoomState";
-import type { pollSlice } from "./reducer";
-import { pollDefault } from "./reducer";
-import type { Poll } from "./types";
+import type { socketStateSlice } from "./reducer";
+import { socketStateDefault } from "./reducer";
+import type { Me, SocketState } from "./types";
 import { Box, Button, Flex } from "../../components";
 import { usePresenceChannel } from "../../hooks";
-import { getPollChannel, sendMessage } from "../../platforms/client/api";
+import { getSocketState, sendMessage } from "../../platforms/client/api";
 
 const CHOICES = ["1", "2", "3", "5", "8", "13", "?", "pass", "☕"];
 
-const usePoll = (channelName: string): Readonly<[Poll, {
-  reload: () => void;
-  setPoll: Dispatch<SetStateAction<Poll>>;
+const useSocketState = (channelName: string): Readonly<[SocketState, {
+  reloadSocketState: () => void;
+  mutateSocketState: Dispatch<SetStateAction<SocketState>>;
 }]> => {
-  const [poll, setPoll] = useState<Poll>(pollDefault);
+  const [socketState, mutateSocketState] = useState<SocketState>(socketStateDefault);
 
   const load = useCallback(async () => {
-    setPoll(await getPollChannel(channelName));
+    mutateSocketState(await getSocketState(channelName));
   }, [channelName]);
 
   useEffect(() => void load(), [load]);
 
-  return [poll, {
-    reload: load,
-    setPoll,
+  return [socketState, {
+    mutateSocketState,
+    reloadSocketState: load,
   }];
-};
-
-type Me = {
-  id: string;
-  info: {
-    name: string;
-  };
 };
 
 // eslint-disable-next-line max-lines-per-function -- todo
 export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
   const [channel] = usePresenceChannel(channelName);
-  const [poll, { setPoll }] = usePoll(channel.name);
+  const [socketState, { mutateSocketState }] = useSocketState(channel.name);
 
-  const sendChannelMessage = useCallback((event: keyof typeof pollSlice, data: unknown) => (): void => {
+  const sendChannelMessage = useCallback((event: keyof typeof socketStateSlice, data: unknown) => (): void => {
     void sendMessage(channel.name, event, data);
   }, [channel.name]);
 
@@ -55,8 +48,8 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
 
   // Bind to channel updates
   useEffect(() => {
-    const update = (pollUpdate: Poll): void => {
-      setPoll(pollUpdate);
+    const update = (socketStateUpdate: SocketState): void => {
+      mutateSocketState(socketStateUpdate);
     };
 
     channel.bind("update", update);
@@ -64,7 +57,7 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
     return (): void => {
       channel.unbind("update", update);
     };
-  }, [channel, setPoll]);
+  }, [channel, mutateSocketState]);
 
   // Trigger an empty vote when component mounts
   useEffect(() => {
@@ -78,15 +71,15 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
   const me = channel.members.me as { info: { name: string } } | null;
 
   const myChoice: string | false | undefined = (
-    me !== null && typeof poll.votes[me.info.name] !== "undefined"
-  ) && poll.votes[me.info.name].vote;
+    me !== null && typeof socketState.votes[me.info.name] !== "undefined"
+  ) && socketState.votes[me.info.name].vote;
 
   return (
     <Flex flex="1" flexDirection="column" height="100%">
       <Flex flex="1">
         <Box width={`${2 / 3 * 100}%`}>
           <Flex flexDirection="column" height="100%" justifyContent="space-between">
-            <RoomState {...poll} sx={{ flex: 1 }} />
+            <RoomState {...socketState} sx={{ flex: 1 }} />
 
             <Flex flexDirection="row" justifyContent="center" my={5}>
               {CHOICES.map((choice) => (
@@ -107,7 +100,7 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
 
         <Flex flexDirection="column" justifyContent="space-between" width={`${1 / 3 * 100}%`}>
           <Box>
-            <RoomMembers poll={poll} />
+            <RoomMembers socket={socketState} />
           </Box>
 
           <Box>

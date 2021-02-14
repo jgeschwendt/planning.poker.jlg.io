@@ -13,7 +13,11 @@ const ReactMagicNumbers = [
   ],
   ...[
     // eslint-disable-next-line no-magic-numbers -- animation timings,
-    100, 200, 250, 300, 350, 400, 450, 500, 1000,
+    100, 200, 250, 300, 350, 400, 450, 500,
+  ],
+  ...[
+    // eslint-disable-next-line no-magic-numbers -- multiplier,
+    -1, 1000,
   ],
 ];
 

@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import type { NextApiHandler, NextApiRequest } from "next";
 import retry from "p-retry";
-import { pollDefault } from "../../../blocks/PlanningPoker/reducer";
+import { socketStateDefault } from "../../../blocks/PlanningPoker/reducer";
 import { pusher } from "../../../platforms/server/pusher";
 import { rGet, rSet } from "../../../platforms/server/redis";
 
@@ -20,13 +20,13 @@ const handler: NextApiHandler = async (req: APIRequest, res) => {
         const response = await pusher.get({ path: `/channels/${event.channel}/users` }) as Response;
 
         if (response.status === StatusCodes.OK) {
-          const poll = await rGet<typeof pollDefault>(event.channel) ?? pollDefault;
+          const socketState = await rGet<typeof socketStateDefault>(event.channel) ?? socketStateDefault;
 
-          poll.users = (await response.json() as typeof poll).users;
+          socketState.users = (await response.json() as typeof socketState).users;
 
-          await rSet(event.channel, poll);
+          await rSet(event.channel, socketState);
 
-          await pusher.trigger(event.channel, "update", poll);
+          await pusher.trigger(event.channel, "update", socketState);
         }
       }));
     }
@@ -34,7 +34,7 @@ const handler: NextApiHandler = async (req: APIRequest, res) => {
     await Promise.all(pList);
   }
 
-  res.send(200);
+  res.send(StatusCodes.OK);
 };
 
 export {

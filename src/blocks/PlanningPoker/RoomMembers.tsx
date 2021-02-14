@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import css from "@styled-system/css";
-import type { Poll } from "./types";
+import type { SocketState } from "./types";
 import { Text } from "../../components";
 
 const List = styled.ul({
@@ -38,11 +38,11 @@ const selectColor = (vote?: string): string => {
   return "green";
 };
 
-export const RoomMembers = ({ poll }: { poll: Poll }): JSX.Element => (
+export const RoomMembers = ({ socket }: { socket: SocketState }): JSX.Element => (
   <List>
-    {Object.keys(poll.votes).map((username) => (
+    {Object.keys(socket.votes).map((username) => (
       <Item key={username}>
-        <Dot color={selectColor(poll.votes[username].vote)} />
+        <Dot color={selectColor(socket.votes[username].vote)} />
 
         <Text>
           {username}

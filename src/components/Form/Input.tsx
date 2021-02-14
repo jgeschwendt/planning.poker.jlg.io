@@ -5,7 +5,7 @@ import shouldForwardProp from "@styled-system/should-forward-prop";
 import type { ForwardedRef, InputHTMLAttributes } from "react";
 import { forwardRef } from "react";
 import type { BordersProps, ColorProps, LayoutProps, SpaceProps, TypographyProps } from "styled-system";
-import { borders, color, layout, space, typography } from "styled-system";
+import { borders, color, compose, layout, space, typography } from "styled-system";
 
 type InputProps =
   BordersProps &
@@ -20,11 +20,13 @@ type InputProps =
   };
 
 const InputBase = styled("input", { shouldForwardProp })(
-  borders,
-  color,
-  layout,
-  space,
-  typography,
+  compose(
+    borders,
+    color,
+    layout,
+    space,
+    typography,
+  ),
   ({ sx }) => css(sx),
 );
 

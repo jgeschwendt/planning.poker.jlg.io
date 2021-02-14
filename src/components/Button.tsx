@@ -14,6 +14,7 @@ import type {
 import {
   borders,
   color,
+  compose,
   display,
   layout,
   space,
@@ -37,12 +38,14 @@ type ButtonProps =
   };
 
 const ButtonBase = styled("button", { shouldForwardProp })(
-  borders,
-  color,
-  display,
-  layout,
-  space,
-  typography,
+  compose(
+    borders,
+    color,
+    display,
+    layout,
+    space,
+    typography,
+  ),
   ({ sx }: { sx?: SystemStyleObject }) => css(sx),
 );
 
