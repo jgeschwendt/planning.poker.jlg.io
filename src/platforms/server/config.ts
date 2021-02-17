@@ -1,4 +1,5 @@
 import type { Options } from "pusher";
+import type { ClientOpts } from "redis";
 import { config as clientConfig } from "../client/config";
 
 /* eslint-disable node/no-process-env -- config */
@@ -33,6 +34,6 @@ export const config = {
     host: process.env.REDIS_HOST,
     password: process.env.REDIS_PASSWORD,
     port: Number(process.env.REDIS_PORT),
-  },
+  } as ClientOpts,
 };
 /* eslint-enable node/no-process-env -- config */

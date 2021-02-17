@@ -84,3 +84,7 @@ export {
   socketStateReducer,
   socketStateSlice,
 };
+
+export type {
+  StateSlice as SocketStateSlice,
+};

@@ -9,8 +9,16 @@ const PusherProvider = ({
   appKey,
   children,
   options,
-}: { appKey: string; children: ReactNode; options: Options }): JSX.Element => {
-  const pusher = useMemo(() => new Pusher(appKey, options), [appKey, options]);
+}: {
+  appKey: string;
+  children: ReactNode;
+  options: Options;
+}): JSX.Element => {
+  const optionsToken = JSON.stringify(options);
+
+  const pusher = useMemo(() => (
+    new Pusher(appKey, JSON.parse(optionsToken))
+  ), [appKey, optionsToken]);
 
   return (
     <PusherContext.Provider value={pusher}>
