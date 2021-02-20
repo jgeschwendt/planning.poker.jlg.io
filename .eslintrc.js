@@ -1,6 +1,6 @@
 "use strict";
 
-const ecmaVersion = 2019;
+const ecmaVersion = 2020;
 
 const AllowedOneCharacterVariables = [
   "a", "b", "i", "j", "k", "m", "p", "x", "y", "z",
@@ -19,6 +19,16 @@ const ReactMagicNumbers = [
     // eslint-disable-next-line no-magic-numbers -- multiplier,
     -1, 1000,
   ],
+];
+
+// https://webpack.js.org/api/module-methods/#magic-comments
+const WebpackMagicComments = [
+  "webpackChunkName",
+  "webpackExclude",
+  "webpackInclude",
+  "webpackMode",
+  "webpackPrefetch",
+  "webpackPreload",
 ];
 
 module.exports = {
@@ -78,10 +88,19 @@ module.exports = {
         "@typescript-eslint/no-magic-numbers": ["error", {
           ignore: ReactMagicNumbers,
         }],
+        "capitalized-comments": [
+          "error",
+          "always",
+          {
+            ignoreInlineComments: false,
+            ignorePattern: WebpackMagicComments.join("|"),
+          },
+        ],
         "import/no-internal-modules": ["error", {
           allow: [
             "next/app",
             "next/head",
+            "next/dynamic",
             "next/link",
             "next/router",
             "**/src/**",
@@ -90,6 +109,15 @@ module.exports = {
         "import/no-named-export": "off",
         "import/no-nodejs-modules": ["error", { "allow": ["util"] }],
         "import/prefer-default-export": "off",
+        "lines-around-comment": ["error", {
+          ignorePattern: WebpackMagicComments.join("|"),
+        }],
+        "node/no-unsupported-features/es-syntax": ["warn", {
+          ignores: [
+            "dynamicImport",
+            "modules",
+          ],
+        }],
         "react/default-props-match-prop-types": "off",
         // eslint-disable-next-line no-magic-numbers -- config
         "react/jsx-max-depth": ["error", { "max": 5 }],
