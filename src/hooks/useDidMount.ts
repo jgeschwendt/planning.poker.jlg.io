@@ -11,7 +11,7 @@ export const useDidMount = <T>(onDidMount?: () => T): boolean => {
     if (typeof callback.current === "function") {
       callback.current();
     }
-  }, [callback, setMounted]);
+  }, [setMounted]);
 
   return mounted;
 };
