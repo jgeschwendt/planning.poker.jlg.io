@@ -1,12 +1,14 @@
-// eslint-disable-next-line import/no-unassigned-import -- todo
 import "./_app.scss";
 
 import { ThemeProvider } from "@emotion/react";
 import type { AppProps } from "next/app";
 import { theme } from "../styles/theme";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention -- next api
-const App = ({ Component, pageProps }: AppProps): JSX.Element => (
+const App = ({
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- next api
+  Component,
+  pageProps,
+}: AppProps): JSX.Element => (
   <ThemeProvider theme={theme}>
     <Component {...pageProps} />
   </ThemeProvider>

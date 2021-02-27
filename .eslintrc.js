@@ -1,10 +1,12 @@
-"use strict";
+'use strict';
 
 const ecmaVersion = 2020;
 
 const AllowedOneCharacterVariables = [
-  "a", "b", "i", "j", "k", "m", "p", "x", "y", "z",
+  'a', 'b', 'i', 'j', 'k', 'm', 'p', 'x', 'y', 'z',
 ];
+
+const MaxDepthJSX = 5;
 
 const ReactMagicNumbers = [
   ...[
@@ -23,152 +25,160 @@ const ReactMagicNumbers = [
 
 // https://webpack.js.org/api/module-methods/#magic-comments
 const WebpackMagicComments = [
-  "webpackChunkName",
-  "webpackExclude",
-  "webpackInclude",
-  "webpackMode",
-  "webpackPrefetch",
-  "webpackPreload",
+  'webpackChunkName',
+  'webpackExclude',
+  'webpackInclude',
+  'webpackMode',
+  'webpackPrefetch',
+  'webpackPreload',
 ];
 
 module.exports = {
   extends: [
-    "@eslint-calibrate",
-    "plugin:@eslint-calibrate/calibrate",
+    '@eslint-calibrate',
+    'plugin:@eslint-calibrate/calibrate',
   ],
   ignorePatterns: [
-    "next-env.d.ts",
+    'next-env.d.ts',
   ],
   overrides: [
     // Language — MDX
     {
       extends: [
-        "plugin:mdx/recommended",
+        'plugin:mdx/recommended',
       ],
       files: [
-        "*.md",
-        "*.mdx",
+        '*.md',
+        '*.mdx',
       ],
       rules: {
-        "import/unambiguous": "off",
+        'import/unambiguous': 'off',
       },
     },
 
     // Language — TypeScript
     {
       extends: [
-        "@eslint-calibrate/typescript",
-        "plugin:@eslint-calibrate/typescript",
+        '@eslint-calibrate/typescript',
+        'plugin:@eslint-calibrate/typescript',
       ],
       files: [
-        "*.ts",
-        "*.tsx",
+        '*.ts',
+        '*.tsx',
       ],
       parserOptions: {
-        project: "./tsconfig.json",
+        project: './tsconfig.json',
       },
       rules: {
-        "@typescript-eslint/prefer-readonly-parameter-types": "off",
+        '@typescript-eslint/prefer-readonly-parameter-types': 'off',
       },
     },
 
     // Environment — Next/React
     {
       extends: [
-        "@eslint-calibrate/react",
-        "plugin:@eslint-calibrate/react",
-        "@eslint-calibrate/node",
-        "@eslint-calibrate/node/typescript",
+        '@eslint-calibrate/react',
+        'plugin:@eslint-calibrate/react',
+        '@eslint-calibrate/node',
+        '@eslint-calibrate/node/typescript',
       ],
       files: [
-        "src/**/*.ts",
-        "src/**/*.tsx",
+        'src/**/*.ts',
+        'src/**/*.tsx',
       ],
       rules: {
-        "@typescript-eslint/no-magic-numbers": ["error", {
+        '@typescript-eslint/no-magic-numbers': ['error', {
           ignore: ReactMagicNumbers,
         }],
-        "capitalized-comments": [
-          "error",
-          "always",
+        'capitalized-comments': [
+          'error',
+          'always',
           {
             ignoreInlineComments: false,
-            ignorePattern: WebpackMagicComments.join("|"),
+            ignorePattern: WebpackMagicComments.join('|'),
           },
         ],
-        "import/no-internal-modules": ["error", {
+        'import/no-internal-modules': ['error', {
           allow: [
-            "next/app",
-            "next/head",
-            "next/dynamic",
-            "next/link",
-            "next/router",
-            "**/src/**",
+            'next/app',
+            'next/head',
+            'next/dynamic',
+            'next/link',
+            'next/router',
+            '**/src/**',
           ],
         }],
-        "import/no-named-export": "off",
-        "import/no-nodejs-modules": ["error", { "allow": ["util"] }],
-        "import/prefer-default-export": "off",
-        "lines-around-comment": ["error", {
-          ignorePattern: WebpackMagicComments.join("|"),
+        'import/no-named-export': 'off',
+        'import/no-nodejs-modules': ['error', {
+          allow: ['util'],
         }],
-        "node/no-unsupported-features/es-syntax": ["warn", {
-          ignores: [
-            "dynamicImport",
-            "modules",
-          ],
+        'import/no-unassigned-import': ['error', {
+          allow: ['**/*.scss'],
         }],
-        "react/default-props-match-prop-types": "off",
-        // eslint-disable-next-line no-magic-numbers -- config
-        "react/jsx-max-depth": ["error", { "max": 5 }],
-        "react/prop-types": "off",
-        // Not needed since React 17
-        "react/react-in-jsx-scope": "off",
+        'import/prefer-default-export': 'off',
+        'lines-around-comment': ['error', {
+          ignorePattern: WebpackMagicComments.join('|'),
+        }],
+        'node/file-extension-in-import': ['error', 'always', {
+          '.ts': 'never',
+          '.tsx': 'never',
+          'tryExtensions': ['.ts', '.tsx'],
+        }],
+        'react/default-props-match-prop-types': 'off',
+        'react/jsx-max-depth': ['error', {
+          max: MaxDepthJSX,
+        }],
+
+        // Redundant in TS applications
+        'react/prop-types': 'off',
+
+        // Handled by babel jsx-transform
+        'react/react-in-jsx-scope': 'off',
       },
       settings: {
-        "import/extensions": [".ts", ".tsx"],
-        "react": {
-          version: "detect",
+        'import/extensions': ['.ts', '.tsx'],
+        'react': {
+          version: 'detect',
         },
       },
     },
     {
       // Next Page exports
       files: [
-        "src/pages/api/**/*.ts",
-        "src/pages/**/*.tsx",
+        'src/pages/api/**/*.ts',
+        'src/pages/**/*.tsx',
       ],
       rules: {
-        "import/no-default-export": "off",
-        "import/prefer-default-export": "error",
+        'import/no-default-export': 'off',
+        'import/prefer-default-export': 'error',
       },
     },
 
     // Environment — Jest
     {
       extends: [
-        "@eslint-calibrate/jest",
+        '@eslint-calibrate/jest',
       ],
       files: [
-        "*.test.ts",
-        "*.test.tsx",
+        '*.test.ts',
+        '*.test.tsx',
       ],
       rules: {
-        "@typescript-eslint/no-magic-numbers": "off",
-        "@typescript-eslint/no-non-null-assertion": "off",
+        '@typescript-eslint/no-magic-numbers': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
       },
     },
 
     // Environment — Node / CommonJS
     {
       extends: [
-        "@eslint-calibrate/node",
-        "@eslint-calibrate/node/script",
+        '@eslint-calibrate/node',
+        '@eslint-calibrate/node/script',
       ],
       files: [
-        ".eslintrc.js",
-        "babel.config.js",
-        "next.config.js",
+        '.eslintrc.js',
+        'babel.config.js',
+        'next.config.js',
       ],
     },
   ],
@@ -178,19 +188,19 @@ module.exports = {
       globalReturn: false,
     },
     ecmaVersion,
-    sourceType: "module",
+    sourceType: 'module',
   },
   root: true,
   rules: {
-    "id-length": ["error", {
+    'id-length': ['error', {
       exceptions: AllowedOneCharacterVariables,
     }],
-    "import/no-relative-parent-imports": "off",
-    "no-warning-comments": "warn",
-    "unicorn/filename-case": "off",
-    "unicorn/no-array-reduce": "off",
-    "unicorn/no-keyword-prefix": "off",
-    "unicorn/no-null": "off",
-    "unicorn/prevent-abbreviations": "off",
+    'import/no-relative-parent-imports': 'off',
+    'no-warning-comments': 'warn',
+    'unicorn/filename-case': 'off',
+    'unicorn/no-array-reduce': 'off',
+    'unicorn/no-keyword-prefix': 'off',
+    'unicorn/no-null': 'off',
+    'unicorn/prevent-abbreviations': 'off',
   },
 };

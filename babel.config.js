@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  plugins: ["@emotion/babel-plugin"],
+  plugins: ['@emotion/babel-plugin'],
   presets: [
     [
-      "next/babel",
+      'next/babel',
       {
-        "preset-react": {
-          "importSource": "@emotion/react",
-          "runtime": "automatic",
+        'preset-react': {
+          'importSource': '@emotion/react',
+          'runtime': 'automatic',
         },
       },
     ],
