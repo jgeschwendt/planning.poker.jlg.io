@@ -1,7 +1,7 @@
-import type { Options } from "pusher-js";
-import Pusher from "pusher-js";
-import type { ReactNode } from "react";
-import { createContext, useMemo } from "react";
+import type { Options } from 'pusher-js';
+import Pusher from 'pusher-js';
+import type { ReactNode } from 'react';
+import { createContext, useMemo } from 'react';
 
 const PusherContext = createContext<Pusher | null>(null);
 

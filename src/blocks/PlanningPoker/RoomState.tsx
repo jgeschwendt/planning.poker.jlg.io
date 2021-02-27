@@ -1,6 +1,6 @@
-import type { SystemStyleObject } from "@styled-system/css";
-import type { SocketState } from "./types";
-import { Flex, Text } from "../../components";
+import type { SystemStyleObject } from '@styled-system/css';
+import type { SocketState } from './types';
+import { Flex, Text } from '../../components';
 
 const RoomState = ({ sx, ...socketState }: SocketState & { sx?: SystemStyleObject }): JSX.Element => (
   <Flex bg="#eee" flexDirection="column" sx={sx}>
@@ -11,7 +11,7 @@ const RoomState = ({ sx, ...socketState }: SocketState & { sx?: SystemStyleObjec
     <pre>
       {socketState.results.public
         ? JSON.stringify(socketState, null, 2)
-        : "waiting..."}
+        : 'waiting...'}
     </pre>
   </Flex>
 );

@@ -1,11 +1,11 @@
-import styled from "@emotion/styled";
-import type { SystemStyleObject } from "@styled-system/css";
-import css from "@styled-system/css";
-import shouldForwardProp from "@styled-system/should-forward-prop";
-import type { ForwardedRef, InputHTMLAttributes } from "react";
-import { forwardRef } from "react";
-import type { BordersProps, ColorProps, LayoutProps, SpaceProps, TypographyProps } from "styled-system";
-import { borders, color, compose, layout, space, typography } from "styled-system";
+import styled from '@emotion/styled';
+import type { SystemStyleObject } from '@styled-system/css';
+import css from '@styled-system/css';
+import shouldForwardProp from '@styled-system/should-forward-prop';
+import type { ForwardedRef, InputHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
+import type { BordersProps, ColorProps, LayoutProps, SpaceProps, TypographyProps } from 'styled-system';
+import { borders, color, compose, layout, space, typography } from 'styled-system';
 
 type InputProps =
   BordersProps &
@@ -19,7 +19,7 @@ type InputProps =
     sx?: SystemStyleObject;
   };
 
-const InputBase = styled("input", { shouldForwardProp })(
+const InputBase = styled('input', { shouldForwardProp })(
   compose(
     borders,
     color,
@@ -31,15 +31,15 @@ const InputBase = styled("input", { shouldForwardProp })(
 );
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({ className, ...props }, ref): JSX.Element => {
-  const classNames = ["form-control", className];
+  const classNames = ['form-control', className];
 
   return (
     // eslint-disable-next-line react/forbid-component-props -- todo
-    <InputBase className={classNames.join(" ")} ref={ref} {...props} />
+    <InputBase className={classNames.join(' ')} ref={ref} {...props} />
   );
 });
 
-Input.displayName = "Input";
+Input.displayName = 'Input';
 
 export {
   Input,

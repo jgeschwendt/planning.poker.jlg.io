@@ -1,12 +1,12 @@
-import { keyframes } from "@emotion/react";
-import styled from "@emotion/styled";
-import { useRouter } from "next/router";
-import type { ChangeEvent, FormEvent } from "react";
-import { useCallback, useRef, useState } from "react";
-import { Box, Button, Flex, Input, Label } from "../components";
-import { useDidMount } from "../hooks";
+import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import type { ChangeEvent, FormEvent } from 'react';
+import { useCallback, useRef, useState } from 'react';
+import { Box, Button, Flex, Input, Label } from '../components';
+import { useDidMount } from '../hooks';
 
-const Form = styled.form({ width: "15rem" });
+const Form = styled.form({ width: '15rem' });
 
 const shakeAnimation = keyframes`
   0%, 100% { 
@@ -25,7 +25,7 @@ const shakeAnimation = keyframes`
 
 // eslint-disable-next-line max-lines-per-function -- @
 const Home = (): JSX.Element => {
-  const [channel, setChannel] = useState("");
+  const [channel, setChannel] = useState('');
   const [channelAnimation, setChannelAnimation] = useState(false);
   const [channelError, setChannelError] = useState<string | null>(null);
 
@@ -48,17 +48,17 @@ const Home = (): JSX.Element => {
     }
 
     // Remove anything thats not a word char or `_`, `-`
-    setChannel((event.target.value.replace((/\s+/gu), "").replace((/[^A-Za-z0-9_-]/gu), "")));
+    setChannel((event.target.value.replace((/\s+/gu), '').replace((/[^A-Za-z0-9_-]/gu), '')));
   }, [triggerChannelShakeAnimation]);
 
   const handleOnSubmit = useCallback((event: FormEvent<HTMLFormElement>): void => {
     // Prevent form submit
     event.preventDefault();
 
-    if (channel === "") {
-      setChannelError("Channel is Required");
+    if (channel === '') {
+      setChannelError('Channel is Required');
       triggerChannelShakeAnimation();
-    } else if (typeof formChannel.current?.value !== "undefined") {
+    } else if (typeof formChannel.current?.value !== 'undefined') {
       void router.push(`/${formChannel.current.value}`);
     }
   }, [channel, router, triggerChannelShakeAnimation]);
@@ -72,14 +72,14 @@ const Home = (): JSX.Element => {
         <Form onSubmit={handleOnSubmit}>
           <Label
             htmlFor="Channel"
-            sx={{ letterSpacing: 1, textTransform: "uppercase" }}
+            sx={{ letterSpacing: 1, textTransform: 'uppercase' }}
           >
             Room Channel
           </Label>
 
           <Input
             // eslint-disable-next-line react/forbid-component-props -- twbs
-            className={channelError === null ? void 0 : "is-invalid"}
+            className={channelError === null ? void 0 : 'is-invalid'}
             id="Channel"
             mb={3}
             onChange={handleOnChange}
@@ -88,8 +88,8 @@ const Home = (): JSX.Element => {
             sx={{
               animation: channelAnimation ? `${shakeAnimation} 100ms linear 0ms normal 2` : null,
               // Hide twbs error icon
-              backgroundImage: "none !important",
-              transform: "translateX(0px)",
+              backgroundImage: 'none !important',
+              transform: 'translateX(0px)',
             }}
             type="text"
             value={channel}
@@ -99,9 +99,9 @@ const Home = (): JSX.Element => {
             id="submit"
             sx={{
               letterSpacing: 1,
-              py: ".75rem",
-              textTransform: "uppercase",
-              width: "100%",
+              py: '.75rem',
+              textTransform: 'uppercase',
+              width: '100%',
             }}
             type="submit"
             variant="outline-primary"

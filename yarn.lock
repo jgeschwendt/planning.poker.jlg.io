@@ -806,63 +806,63 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint-calibrate/eslint-config-jest@npm:0.1.5":
-  version: 0.1.5
-  resolution: "@eslint-calibrate/eslint-config-jest@npm:0.1.5"
+"@eslint-calibrate/eslint-config-jest@npm:0.1.6":
+  version: 0.1.6
+  resolution: "@eslint-calibrate/eslint-config-jest@npm:0.1.6"
   dependencies:
     eslint-plugin-jest: ^24.1.5
   peerDependencies:
-    "@eslint-calibrate/eslint-config": ^0.1.5
+    "@eslint-calibrate/eslint-config": ^0.1.6
     eslint: ">=7.0.0"
-  checksum: 7f3e03ce607012a8fce8269639c0c5955731374da4fb392994f1740dbf71610352aebedd63d171a62b18004fa87ce2da9432846f80e5d238fb4ae8d62c9161e5
+  checksum: 6d5f1996c85bb277b7317a04607f3fc416485930771fc35f362b2e98da3c142c1cea46f09d6c8611dcfc579246e2f4767ec5e7375cd7061da9dd8514cd8e5e10
   languageName: node
   linkType: hard
 
-"@eslint-calibrate/eslint-config-node@npm:0.1.5":
-  version: 0.1.5
-  resolution: "@eslint-calibrate/eslint-config-node@npm:0.1.5"
+"@eslint-calibrate/eslint-config-node@npm:0.1.6":
+  version: 0.1.6
+  resolution: "@eslint-calibrate/eslint-config-node@npm:0.1.6"
   dependencies:
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-import: ^2.22.1
     eslint-plugin-node: ^11.1.0
   peerDependencies:
-    "@eslint-calibrate/eslint-config": ^0.1.5
+    "@eslint-calibrate/eslint-config": ^0.1.6
     eslint: ">=7.0.0"
-  checksum: 9821cbb31e91636f1f003e2f5c99fd90049bc08d76bd3fa52eab768deaa1c88b7a318e0a71aaad6a1e315adaba06d54e53f99adb6b5b0a4b40435c0213612438
+  checksum: e784ae40a9153a65e6e8145bc127f777aeb8d26e8039da3a09417f9768626020d42c361f76f00f3d3cc9d99c7c44a219572795a7dd655daedb976f01acef4464
   languageName: node
   linkType: hard
 
-"@eslint-calibrate/eslint-config-react@npm:0.1.5":
-  version: 0.1.5
-  resolution: "@eslint-calibrate/eslint-config-react@npm:0.1.5"
+"@eslint-calibrate/eslint-config-react@npm:0.1.6":
+  version: 0.1.6
+  resolution: "@eslint-calibrate/eslint-config-react@npm:0.1.6"
   dependencies:
     eslint-plugin-jsx-a11y: ^6.4.1
     eslint-plugin-react: ^7.22.0
     eslint-plugin-react-hooks: ^4.2.0
   peerDependencies:
-    "@eslint-calibrate/eslint-config": ^0.1.5
+    "@eslint-calibrate/eslint-config": ^0.1.6
     eslint: ">=7.14.0"
-  checksum: 619ef74dcbd7aaeb92fc0e700c9ddfb6be6ddc8f5f44208f72a427da27af7c7fc306fb2dd9139867d265e1a4f3406126c958c959908312a4c93af829f62849a1
+  checksum: f3628b464f5d2c399007a4526493dc2e114b151f7f13ce52891136b4f732876cb2b411f765e335713bcb8fdc857c8ee9ff63d234e06462080ca11365750e881d
   languageName: node
   linkType: hard
 
-"@eslint-calibrate/eslint-config-typescript@npm:0.1.5":
-  version: 0.1.5
-  resolution: "@eslint-calibrate/eslint-config-typescript@npm:0.1.5"
+"@eslint-calibrate/eslint-config-typescript@npm:0.1.6":
+  version: 0.1.6
+  resolution: "@eslint-calibrate/eslint-config-typescript@npm:0.1.6"
   dependencies:
     "@typescript-eslint/eslint-plugin": ^4.15.2
     "@typescript-eslint/parser": ^4.15.2
     eslint-plugin-import: ^2.22.1
   peerDependencies:
-    "@eslint-calibrate/eslint-config": ^0.1.5
+    "@eslint-calibrate/eslint-config": ^0.1.6
     eslint: ">=7.0.0"
-  checksum: 397fac3820b5fcf8092f3cd728e1d7c7c19c1c96602e39cac78ae2e754d5ffc77c5c2fe63a7a06230a2de3b2f191956792158131db9a4e7e4ca9a6ff051d9fc9
+  checksum: 437a9c82dff6dd3278186af7bfb75250cfe334a02d2aa60db970b263e0e57372a785127510a86bf8d062ea9ec4aeafce19c8835cfb9d45ea61668d875ff3cbec
   languageName: node
   linkType: hard
 
-"@eslint-calibrate/eslint-config@npm:0.1.5":
-  version: 0.1.5
-  resolution: "@eslint-calibrate/eslint-config@npm:0.1.5"
+"@eslint-calibrate/eslint-config@npm:0.1.6":
+  version: 0.1.6
+  resolution: "@eslint-calibrate/eslint-config@npm:0.1.6"
   dependencies:
     eslint-plugin-eslint-comments: ^3.2.0
     eslint-plugin-import: ^2.22.1
@@ -870,17 +870,17 @@ __metadata:
     eslint-plugin-unicorn: ^28.0.2
   peerDependencies:
     eslint: ">=7.0.0"
-  checksum: b68d7c91963bda3e50d9ab866d5c41e9c0fde2e3be6e8d2757f6a92a5d87ae7dbde2a56e08e3fc696e9bf6357a79611a5149356981c96cf25e1eb9065aee1382
+  checksum: 5f9b666d109bb8976c555fea69cc75269556f97575cfc11dee5284354004636c9fb55e21de7f0e32fb09e2791d05693726a3ce14449214df8478ec98e09c49bf
   languageName: node
   linkType: hard
 
-"@eslint-calibrate/eslint-plugin@npm:0.1.5":
-  version: 0.1.5
-  resolution: "@eslint-calibrate/eslint-plugin@npm:0.1.5"
+"@eslint-calibrate/eslint-plugin@npm:0.1.6":
+  version: 0.1.6
+  resolution: "@eslint-calibrate/eslint-plugin@npm:0.1.6"
   peerDependencies:
-    "@eslint-calibrate/eslint-config": ^0.1.5
+    "@eslint-calibrate/eslint-config": ^0.1.6
     eslint: ">=7.0.0"
-  checksum: 800680704c5fdf3c35c76b1d8c3f82eda2d6f7b4b831ea385db0e26a3fe3b7e0ee46dc4c2d024a2da8200f3d96aa252541923eb168df554ff1d619fd47bd9c79
+  checksum: d17405ade49aca313e838c3fa1603a904af4921e492670b0b445a45268a90c71843ce197787d27314bdbc7fa143d80083690dcfbc7d2629b54648c18f8207182
   languageName: node
   linkType: hard
 
@@ -6076,12 +6076,12 @@ __metadata:
     "@emotion/babel-plugin": 11.2.0
     "@emotion/react": 11.1.5
     "@emotion/styled": 11.1.5
-    "@eslint-calibrate/eslint-config": 0.1.5
-    "@eslint-calibrate/eslint-config-jest": 0.1.5
-    "@eslint-calibrate/eslint-config-node": 0.1.5
-    "@eslint-calibrate/eslint-config-react": 0.1.5
-    "@eslint-calibrate/eslint-config-typescript": 0.1.5
-    "@eslint-calibrate/eslint-plugin": 0.1.5
+    "@eslint-calibrate/eslint-config": 0.1.6
+    "@eslint-calibrate/eslint-config-jest": 0.1.6
+    "@eslint-calibrate/eslint-config-node": 0.1.6
+    "@eslint-calibrate/eslint-config-react": 0.1.6
+    "@eslint-calibrate/eslint-config-typescript": 0.1.6
+    "@eslint-calibrate/eslint-plugin": 0.1.6
     "@styled-system/css": 5.1.5
     "@styled-system/should-forward-prop": 5.1.5
     "@types/node": 14.14.31

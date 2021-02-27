@@ -1,6 +1,6 @@
-import type { Members, PresenceChannel } from "pusher-js";
-import { useEffect, useRef, useState } from "react";
-import { usePusher } from "./usePusher";
+import type { Members, PresenceChannel } from 'pusher-js';
+import { useEffect, useRef, useState } from 'react';
+import { usePusher } from './usePusher';
 
 type Member = {
   id: string;
@@ -8,8 +8,8 @@ type Member = {
 };
 
 export const usePresenceChannel = (channelName: string): [PresenceChannel, Members] => {
-  if (!channelName.includes("presence-")) {
-    throw new Error("Presence channels must use the 'presence-' prefix");
+  if (!channelName.includes('presence-')) {
+    throw new Error('Presence channels must use the \'presence-\' prefix');
   }
 
   const pusher = usePusher();
@@ -22,28 +22,28 @@ export const usePresenceChannel = (channelName: string): [PresenceChannel, Membe
     const currentChannel = channel.current;
 
     const pusherSubscriptionSucceeded = (membersRecord: Members): void => {
-      window.console.log("[Members]: ", membersRecord);
+      window.console.log('[Members]: ', membersRecord);
       setMembers(currentChannel.members);
     };
 
     const pusherMemberAdded = (member: Member): void => {
-      window.console.log("[MemberAdded]: ", member);
+      window.console.log('[MemberAdded]: ', member);
       setMembers(currentChannel.members);
     };
 
     const pusherMemberRemoved = (member: Member): void => {
-      window.console.log("[MemberRemoved]: ", member);
+      window.console.log('[MemberRemoved]: ', member);
       setMembers(currentChannel.members);
     };
 
-    currentChannel.bind("pusher:member_added", pusherMemberAdded);
-    currentChannel.bind("pusher:member_removed", pusherMemberRemoved);
-    currentChannel.bind("pusher:subscription_succeeded", pusherSubscriptionSucceeded);
+    currentChannel.bind('pusher:member_added', pusherMemberAdded);
+    currentChannel.bind('pusher:member_removed', pusherMemberRemoved);
+    currentChannel.bind('pusher:subscription_succeeded', pusherSubscriptionSucceeded);
 
     return (): void => {
-      currentChannel.unbind("pusher:member_added", pusherMemberAdded);
-      currentChannel.unbind("pusher:member_removed", pusherMemberRemoved);
-      currentChannel.unbind("pusher:subscription_succeeded", pusherSubscriptionSucceeded);
+      currentChannel.unbind('pusher:member_added', pusherMemberAdded);
+      currentChannel.unbind('pusher:member_removed', pusherMemberRemoved);
+      currentChannel.unbind('pusher:subscription_succeeded', pusherSubscriptionSucceeded);
 
       pusher.unsubscribe(channelName);
     };

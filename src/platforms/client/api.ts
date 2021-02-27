@@ -1,13 +1,13 @@
-import type { ReasonPhrases } from "http-status-codes";
-import type { SocketState } from "../../blocks/PlanningPoker/types";
+import type { ReasonPhrases } from 'http-status-codes';
+import type { SocketState } from '../../blocks/PlanningPoker/types';
 
 const sendMessage = async (channelName: string, event: string, data: unknown): Promise<ReasonPhrases.OK> => {
   const response = await fetch(`/api/state/${channelName}`, {
     body: JSON.stringify([event, data]),
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
     },
-    method: "POST",
+    method: 'POST',
   });
 
   if (!response.ok) {
@@ -20,9 +20,9 @@ const sendMessage = async (channelName: string, event: string, data: unknown): P
 const getSocketState = async (channelName: string): Promise<SocketState> => {
   const response = await fetch(`/api/state/${channelName}`, {
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
     },
-    method: "GET",
+    method: 'GET',
   });
 
   if (!response.ok) {

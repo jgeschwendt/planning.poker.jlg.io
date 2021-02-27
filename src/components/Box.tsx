@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
-import type { SystemStyleObject } from "@styled-system/css";
-import css from "@styled-system/css";
-import shouldForwardProp from "@styled-system/should-forward-prop";
-import type { HTMLAttributes } from "react";
-import type { ColorProps, FlexboxProps, LayoutProps, SpaceProps } from "styled-system";
-import { borders, color, compose, flexbox, layout, space } from "styled-system";
+import styled from '@emotion/styled';
+import type { SystemStyleObject } from '@styled-system/css';
+import css from '@styled-system/css';
+import shouldForwardProp from '@styled-system/should-forward-prop';
+import type { HTMLAttributes } from 'react';
+import type { ColorProps, FlexboxProps, LayoutProps, SpaceProps } from 'styled-system';
+import { borders, color, compose, flexbox, layout, space } from 'styled-system';
 
 export type BoxProps =
   ColorProps &
@@ -14,9 +14,9 @@ export type BoxProps =
   SpaceProps &
   { sx?: SystemStyleObject };
 
-export const Box = styled("div", { shouldForwardProp })<BoxProps>(
+export const Box = styled('div', { shouldForwardProp })<BoxProps>(
   {
-    boxSizing: "border-box",
+    boxSizing: 'border-box',
   },
   compose(
     borders,

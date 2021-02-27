@@ -1,11 +1,11 @@
-import { StatusCodes } from "http-status-codes";
-import type { NextApiHandler, NextApiRequest } from "next";
-import retry from "p-retry";
-import { socketStateDefault } from "../../../blocks/PlanningPoker/reducer";
-import { pusher } from "../../../platforms/server/pusher";
-import { rGet, rSet } from "../../../platforms/server/redis";
+import { StatusCodes } from 'http-status-codes';
+import type { NextApiHandler, NextApiRequest } from 'next';
+import retry from 'p-retry';
+import { socketStateDefault } from '../../../blocks/PlanningPoker/reducer';
+import { pusher } from '../../../platforms/server/pusher';
+import { rGet, rSet } from '../../../platforms/server/redis';
 
-type APIRequest = Omit<NextApiRequest, "body"> & {
+type APIRequest = Omit<NextApiRequest, 'body'> & {
   body: {
     events?: Record<string, string>[];
   };
@@ -26,7 +26,7 @@ const handler: NextApiHandler = async (req: APIRequest, res) => {
 
           await rSet(event.channel, socketState);
 
-          await pusher.trigger(event.channel, "update", socketState);
+          await pusher.trigger(event.channel, 'update', socketState);
         }
       }));
     }

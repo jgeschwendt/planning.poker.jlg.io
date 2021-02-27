@@ -1,15 +1,15 @@
-import type { Dispatch, SetStateAction } from "react";
-import { useCallback, useEffect, useState } from "react";
-import { RoomMembers } from "./RoomMembers";
-import { RoomState } from "./RoomState";
-import type { socketStateSlice } from "./reducer";
-import { socketStateDefault } from "./reducer";
-import type { Me, SocketState } from "./types";
-import { Box, Button, Flex } from "../../components";
-import { usePresenceChannel } from "../../hooks";
-import { getSocketState, sendMessage } from "../../platforms/client/api";
+import type { Dispatch, SetStateAction } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { RoomMembers } from './RoomMembers';
+import { RoomState } from './RoomState';
+import type { socketStateSlice } from './reducer';
+import { socketStateDefault } from './reducer';
+import type { Me, SocketState } from './types';
+import { Box, Button, Flex } from '../../components';
+import { usePresenceChannel } from '../../hooks';
+import { getSocketState, sendMessage } from '../../platforms/client/api';
 
-const CHOICES = ["1", "2", "3", "5", "8", "13", "?", "pass", "☕"];
+const CHOICES = ['1', '2', '3', '5', '8', '13', '?', 'pass', '☕'];
 
 const useSocketState = (channelName: string): Readonly<[SocketState, {
   reloadSocketState: () => void;
@@ -42,7 +42,7 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
     if (channel.members.me !== null) {
       const me = channel.members.me as Me;
 
-      sendChannelMessage("vote", [me.info.name, { socketID: me.id, vote }])();
+      sendChannelMessage('vote', [me.info.name, { socketID: me.id, vote }])();
     }
   }, [channel.members.me, sendChannelMessage]);
 
@@ -52,10 +52,10 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
       mutateSocketState(socketStateUpdate);
     };
 
-    channel.bind("update", update);
+    channel.bind('update', update);
 
     return (): void => {
-      channel.unbind("update", update);
+      channel.unbind('update', update);
     };
   }, [channel, mutateSocketState]);
 
@@ -64,14 +64,14 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
     if (channel.members.me !== null) {
       const me = channel.members.me as Me;
 
-      sendChannelMessage("vote", [me.info.name, { socketID: me.id }])();
+      sendChannelMessage('vote', [me.info.name, { socketID: me.id }])();
     }
   }, [channel.members.me, sendChannelMessage]);
 
   const me = channel.members.me as { info: { name: string } } | null;
 
   const myChoice: string | false | undefined = (
-    me !== null && typeof socketState.votes[me.info.name] !== "undefined"
+    me !== null && typeof socketState.votes[me.info.name] !== 'undefined'
   ) && socketState.votes[me.info.name].vote;
 
   return (
@@ -88,7 +88,7 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
                     borderRadius={0}
                     onClick={sendVote(choice)}
                     size="lg"
-                    variant={choice === myChoice ? "primary" : "secondary"}
+                    variant={choice === myChoice ? 'primary' : 'secondary'}
                   >
                     {choice}
                   </Button>
@@ -106,7 +106,7 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
           <Box>
             <Button
               borderRadius="0"
-              onClick={sendChannelMessage("results.public.set", true)}
+              onClick={sendChannelMessage('results.public.set', true)}
               variant="primary"
               width="50%"
             >
@@ -115,7 +115,7 @@ export const Room = ({ channelName }: { channelName: string }): JSX.Element => {
 
             <Button
               borderRadius="0"
-              onClick={sendChannelMessage("reset", void 0)}
+              onClick={sendChannelMessage('reset', void 0)}
               variant="secondary"
               width="50%"
             >

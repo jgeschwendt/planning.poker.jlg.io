@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
-import type { SystemStyleObject } from "@styled-system/css";
-import css from "@styled-system/css";
-import shouldForwardProp from "@styled-system/should-forward-prop";
-import type { ReactNode } from "react";
+import styled from '@emotion/styled';
+import type { SystemStyleObject } from '@styled-system/css';
+import css from '@styled-system/css';
+import shouldForwardProp from '@styled-system/should-forward-prop';
+import type { ReactNode } from 'react';
 import type {
   BordersProps,
   ColorProps,
@@ -10,7 +10,7 @@ import type {
   LayoutProps,
   SpaceProps,
   TypographyProps,
-} from "styled-system";
+} from 'styled-system';
 import {
   borders,
   color,
@@ -19,7 +19,7 @@ import {
   layout,
   space,
   typography,
-} from "styled-system";
+} from 'styled-system';
 
 type ButtonProps =
   BordersProps &
@@ -32,12 +32,12 @@ type ButtonProps =
   {
     id?: string;
     children?: ReactNode;
-    size?: "lg";
-    type?: "button" | "reset" | "submit";
-    variant?: "outline-primary" | "outline-secondary" | "primary" | "secondary";
+    size?: 'lg';
+    type?: 'button' | 'reset' | 'submit';
+    variant?: 'outline-primary' | 'outline-secondary' | 'primary' | 'secondary';
   };
 
-const ButtonBase = styled("button", { shouldForwardProp })(
+const ButtonBase = styled('button', { shouldForwardProp })(
   compose(
     borders,
     color,
@@ -52,21 +52,21 @@ const ButtonBase = styled("button", { shouldForwardProp })(
 const Button = ({
   children,
   color: colorProp,
-  variant = "primary",
+  variant = 'primary',
   size,
-  type = "button",
+  type = 'button',
   ...props
 }: ButtonProps): JSX.Element => {
-  const classNames = ["btn", `btn-${variant}`];
+  const classNames = ['btn', `btn-${variant}`];
 
-  if (typeof size === "string") {
+  if (typeof size === 'string') {
     classNames.push(`btn-${size}`);
   }
 
   return (
     <ButtonBase
       // eslint-disable-next-line react/forbid-component-props -- todo
-      className={classNames.join(" ")}
+      className={classNames.join(' ')}
       color={colorProp as string}
       type={type}
       {...props}
@@ -81,8 +81,8 @@ Button.defaultProps = {
   color: void 0,
   id: void 0,
   size: void 0,
-  type: "button",
-  variant: "primary",
+  type: 'button',
+  variant: 'primary',
 };
 
 export {

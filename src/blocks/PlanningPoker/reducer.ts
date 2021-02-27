@@ -1,5 +1,5 @@
-import immer from "immer";
-import type { SocketState } from "./types";
+import immer from 'immer';
+import type { SocketState } from './types';
 
 // Alias immer as produce
 const produce = immer;
@@ -16,7 +16,7 @@ type StateUpdate = ((socketState: SocketState) => SocketState);
 
 /* eslint-disable @typescript-eslint/no-dynamic-delete -- immer scope */
 const socketStateSlice = {
-  "reset": (): StateUpdate => (
+  'reset': (): StateUpdate => (
     produce((socketState: SocketState) => {
       socketState.results.public = false;
 
@@ -24,7 +24,7 @@ const socketStateSlice = {
       // Check if the user is online
         if (socketState.users.some(({ id }) => id === socketState.votes[username].socketID)) {
         // Check if the user is not taking coffee break.
-          if (socketState.votes[username].vote !== "☕") {
+          if (socketState.votes[username].vote !== '☕') {
             socketState.votes[username] = {
               socketID: socketState.votes[username].socketID,
               vote: void 0,
@@ -36,12 +36,12 @@ const socketStateSlice = {
         }
       }
     })),
-  "results.public.set": (flag: boolean): StateUpdate => (
+  'results.public.set': (flag: boolean): StateUpdate => (
     produce((socketState: SocketState) => {
       socketState.results.public = flag;
     })
   ),
-  "vote": ([from, data]: [string, unknown]): StateUpdate => (
+  'vote': ([from, data]: [string, unknown]): StateUpdate => (
     produce((socketState: SocketState) => {
       socketState.votes[from] = {
         ...socketState.votes[from],
@@ -70,7 +70,7 @@ const socketStateReducer = <Reducer extends StateSlice, Action extends keyof Sta
   return produce(state, (draft) => {
     const usersWithoutVotes = Object
       .keys(draft.votes)
-      .filter((username) => typeof draft.votes[username].vote === "undefined");
+      .filter((username) => typeof draft.votes[username].vote === 'undefined');
 
     // If all the votes have been submitted set the results to public
     if ((usersWithoutVotes).length === 0) {

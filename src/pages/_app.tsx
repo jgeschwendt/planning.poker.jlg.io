@@ -1,8 +1,8 @@
-import "./_app.scss";
+import './_app.scss';
 
-import { ThemeProvider } from "@emotion/react";
-import type { AppProps } from "next/app";
-import { theme } from "../styles/theme";
+import { ThemeProvider } from '@emotion/react';
+import type { AppProps } from 'next/app';
+import { theme } from '../styles/theme';
 
 const App = ({
   // eslint-disable-next-line @typescript-eslint/naming-convention -- next api

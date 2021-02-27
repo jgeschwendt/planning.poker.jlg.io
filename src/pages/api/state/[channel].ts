@@ -1,19 +1,19 @@
-import { ReasonPhrases, StatusCodes } from "http-status-codes";
-import type { NextApiHandler, NextApiRequest } from "next";
-import type { SocketStateSlice } from "../../../blocks/PlanningPoker/reducer";
-import { socketStateDefault, socketStateReducer } from "../../../blocks/PlanningPoker/reducer";
-import type { SocketState } from "../../../blocks/PlanningPoker/types";
-import { log } from "../../../lib";
-import { pusher } from "../../../platforms/server/pusher";
-import { rGet, rSet } from "../../../platforms/server/redis";
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import type { NextApiHandler, NextApiRequest } from 'next';
+import type { SocketStateSlice } from '../../../blocks/PlanningPoker/reducer';
+import { socketStateDefault, socketStateReducer } from '../../../blocks/PlanningPoker/reducer';
+import type { SocketState } from '../../../blocks/PlanningPoker/types';
+import { log } from '../../../lib';
+import { pusher } from '../../../platforms/server/pusher';
+import { rGet, rSet } from '../../../platforms/server/redis';
 
 const GET = {
   handler: async (req: NextApiRequest): Promise<SocketState> => (
     await rGet<SocketState>(req.query.channel as string) ?? socketStateDefault
   ),
   process: (req: NextApiRequest): void => {
-    if (typeof req.query.channel !== "string") {
-      throw new TypeError("Missing `query.channel`");
+    if (typeof req.query.channel !== 'string') {
+      throw new TypeError('Missing `query.channel`');
     }
   },
 };
@@ -33,19 +33,19 @@ const POST = {
 
     await rSet(req.query.channel as string, socketState);
 
-    await pusher.trigger(req.query.channel as string, "update", socketState);
+    await pusher.trigger(req.query.channel as string, 'update', socketState);
   },
   process: (req: NextApiRequest): void => {
-    if (typeof req.query.channel !== "string") {
-      throw new TypeError("Missing `query.channel`");
+    if (typeof req.query.channel !== 'string') {
+      throw new TypeError('Missing `query.channel`');
     }
 
     if (!Array.isArray(req.body)) {
-      throw new TypeError("Body should be an Array");
+      throw new TypeError('Body should be an Array');
     }
 
-    if (typeof (req.body as unknown[])[0] === "undefined") {
-      throw new TypeError("Missing `body[event,]`");
+    if (typeof (req.body as unknown[])[0] === 'undefined') {
+      throw new TypeError('Missing `body[event,]`');
     }
   },
 };
@@ -54,7 +54,7 @@ const POST = {
 const handler: NextApiHandler = async (req, res): Promise<void> => {
   try {
     switch (req.method?.toUpperCase()) {
-      case "GET":
+      case 'GET':
         try {
           GET.process(req);
         } catch (error) {
@@ -68,7 +68,7 @@ const handler: NextApiHandler = async (req, res): Promise<void> => {
         res.json(await GET.handler(req));
         return;
 
-      case "POST":
+      case 'POST':
         try {
           POST.process(req);
         } catch (error) {

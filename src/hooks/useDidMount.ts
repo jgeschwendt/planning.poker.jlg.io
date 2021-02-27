@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 export const useDidMount = <T>(onDidMount?: () => T): boolean => {
   const callback = useRef(onDidMount);
@@ -8,7 +8,7 @@ export const useDidMount = <T>(onDidMount?: () => T): boolean => {
   useEffect((): void => {
     setMounted(true);
 
-    if (typeof callback.current === "function") {
+    if (typeof callback.current === 'function') {
       callback.current();
     }
   }, [setMounted]);

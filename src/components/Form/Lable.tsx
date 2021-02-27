@@ -1,20 +1,20 @@
-import styled from "@emotion/styled";
-import type { SystemStyleObject } from "@styled-system/css";
-import css from "@styled-system/css";
-import shouldForwardProp from "@styled-system/should-forward-prop";
-import type { LabelHTMLAttributes } from "react";
+import styled from '@emotion/styled';
+import type { SystemStyleObject } from '@styled-system/css';
+import css from '@styled-system/css';
+import shouldForwardProp from '@styled-system/should-forward-prop';
+import type { LabelHTMLAttributes } from 'react';
 import type {
   ColorProps,
   SpaceProps,
   TextStyleProps,
   TypographyProps,
-} from "styled-system";
+} from 'styled-system';
 import {
   color,
   compose,
   space,
   typography,
-} from "styled-system";
+} from 'styled-system';
 
 type LabelProps =
   ColorProps &
@@ -24,7 +24,7 @@ type LabelProps =
   TypographyProps &
   { sx?: SystemStyleObject };
 
-const Label = styled("label", { shouldForwardProp })<LabelProps>(
+const Label = styled('label', { shouldForwardProp })<LabelProps>(
   compose(
     color,
     space,
@@ -34,7 +34,7 @@ const Label = styled("label", { shouldForwardProp })<LabelProps>(
 );
 
 Label.defaultProps = {
-  className: "form-label",
+  className: 'form-label',
 };
 
 export {
